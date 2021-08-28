@@ -10,6 +10,11 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
 
+import Category from './pages/Category';
+import CheckOut from './pages/CheckOut';
+import Directory from './pages/Directory';
+import ProcessPayment from './pages/ProcessPayment';
+
 export default function Router() {
   return (
     <BrowserRouter>
@@ -37,6 +42,18 @@ export default function Router() {
           </Route>
           <Route path="/sign-in">
             <LogIn />
+          </Route>
+          <Route path="/directory">
+            <Directory />
+          </Route>
+          <Route path="/category">
+            <Category />
+          </Route>
+          <Route path="/checkout">
+            <CheckOut />
+          </Route>
+          <Route path="/process-payment">
+            <ProcessPayment />
           </Route>
           <Route path="/">
             <Home />
