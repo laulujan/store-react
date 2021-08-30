@@ -3,7 +3,6 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import Home from './pages/Home';
@@ -14,28 +13,13 @@ import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
+import Nav from './components/Nav'
 
 export default function Router() {
   return (
     <BrowserRouter>
       <div>
-        <nav>
-            <p>navbar goes here with these links:</p>
-          <ul>
-            <li>
-              <Link to="/">Home (shop logo)</Link>
-            </li>
-            <li>
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li>
-              <Link to="/sign-in">Sign In</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+        <Nav />
         <Switch>
           <Route path="/shop">
             <Shop />
