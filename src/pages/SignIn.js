@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from '../components/Login';
+import Signin from '../components/Signin';
 import Container from '@material-ui/core/Container';
 
 const LogIn = () => {
     return (
         <Container component="main" maxWidth="xs">
-            <Login />
+            <Signin />
         </Container>
     );
 };

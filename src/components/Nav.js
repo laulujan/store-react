@@ -83,7 +83,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/sign-in"
+              href="/login"
               className={classes.link}
             >
               Sign In
