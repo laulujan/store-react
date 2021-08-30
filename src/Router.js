@@ -12,6 +12,7 @@ import SignIn from './pages/SignIn'
 
 import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
+import SuccessfullCheckOut from './pages/SuccessfullPayment';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
 import Nav from './components/Nav'
@@ -39,6 +40,9 @@ export default function Router() {
           </Route>
           <Route path="/checkout">
             <CheckOut />
+          </Route>
+          <Route path="/successfull-payment">
+            <SuccessfullCheckOut />
           </Route>
           <Route path="/process-payment">
             <ProcessPayment />
