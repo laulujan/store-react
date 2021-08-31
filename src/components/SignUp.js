@@ -36,7 +36,7 @@ const Signup = () => {
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Sign in
+        Sign up
       </Typography>
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
@@ -92,7 +92,7 @@ const Signup = () => {
           color="primary"
           className={classes.submit}
         >
-          Sign In
+          Sign Up
         </Button>
       </form>
     </div>
