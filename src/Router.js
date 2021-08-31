@@ -26,7 +26,7 @@ export default function Router() {
           <Route path="/shop">
             <Shop />
           </Route>
-          <Route path="/sign-in">
+          <Route path="/sign-up">
             <SignUp />
           </Route>
           <Route path="/login">

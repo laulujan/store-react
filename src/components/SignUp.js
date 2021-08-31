@@ -6,6 +6,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
+//import AccountService from "../api/AccountService";
+import axios from "axios";
+
+const signUpUser = async (user) => {
+    const result = await axios.post('http://localhost:5000/api/auth/',user);
+    return result;
+};
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -28,9 +36,27 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(username, email, password);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, email, password);
+    const user = {
+      displayName: username,
+      email: email,
+      password: password,
+    };
+    console.log(user);
+
+    signUpUser(user)
+      .then((result) => {
+        alert('signed up succesfully, now you can log in');
+      })
+      .catch((error) => {
+        alert('registration failed :(');
+      });
   };
 
   return (
