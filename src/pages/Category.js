@@ -1,21 +1,34 @@
 import React from 'react';
-import ProductCard from '../components/ProductCard';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import CardsContainer from '../components/CardsContainer';
 import { productsResponse } from '../dummydata/dummy_products';
 
-const myDummyProduct = productsResponse.data[3];
+
+const useStyles = makeStyles({
+    categoryContainer: {
+      padding: "1em",
+      
+    },
+  });
+
+const dummyProductsAll = productsResponse.data;
+
+const dummyCategory = dummyProductsAll[10].title;
 
 const Category = () => {
-    // dummy function as example for the Card props:
-    const addToCartAction = () => {
-        alert("you added a product to the cart :)");
-    };
+    const classes = useStyles();
     return (
-        <div>
-            <ProductCard 
-            productInfo={myDummyProduct} 
-            addToCartHandler={addToCartAction}
-            />
-        </div>
+        <Grid container className={classes.categoryContainer}>
+            <Grid item xs={12} className={classes.categoryRow}>
+                <CardsContainer
+                        rowName={dummyCategory}
+                        rawData={dummyProductsAll}
+                        top5={false}
+                        
+                />
+            </Grid>
+        </Grid>
     );
 };
 

@@ -1,10 +1,45 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+import CardsContainer from '../components/CardsContainer';
+import { productsResponse } from '../dummydata/dummy_products';
+
+const dummyProductsAll = productsResponse.data;
+
+const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
+    return product.title;
+}));
+
+const useStyles = makeStyles({
+    directoryContainer: {
+      padding: "1em",
+      
+    },
+    categoryRow: {
+        margin: "1em 0em 1em 0em",
+    },
+  });
 
 const Directory = () => {
+    const classes = useStyles();
     return (
-        <div>
-            components go here (is this the same as shop page ?)
-        </div>
+        <Grid container className={classes.directoryContainer}>
+            {
+                [...dummyProductCategories].map((category, index) => (
+                    <Grid item xs={12} className={classes.categoryRow}>
+                        <CardsContainer
+                        key={index}
+                        rowName={category}
+                        rawData={dummyProductsAll}
+                        top5={true}
+                        
+                    />
+                    </Grid>
+                ))
+            }
+            
+        </Grid>
     );
 };
 
