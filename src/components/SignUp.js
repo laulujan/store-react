@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -6,13 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
-//import AccountService from "../api/AccountService";
-import axios from "axios";
-
-const signUpUser = async (user) => {
-    const result = await axios.post('http://localhost:5000/api/auth/',user);
-    return result;
-};
+import AccountService from "../api/AccountService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,11 +30,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(username, email, password);
-  // };
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,12 +41,13 @@ const Signup = () => {
     };
     console.log(user);
 
-    signUpUser(user)
+    AccountService.signUpUser(user)
       .then((result) => {
-        alert('signed up succesfully, now you can log in');
+        alert('Signed up succesfully, now you can log in!');
+        history.push("/login");
       })
       .catch((error) => {
-        alert('registration failed :(');
+        alert('Registration failed :(');
       });
   };
 

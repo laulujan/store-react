@@ -30,12 +30,18 @@ import axios from "axios";
 // }
 
 const signUpUser = async (user) => {
-    const result = await axios.post('localhost:5000/api/auth/',{...user})
-    return result.data
+    const result = await axios.post('http://localhost:5000/api/auth/',user);
+    return result.data;
+};
+
+const logInUser = async (user) => {
+    const result = await axios.post('http://localhost:5000/api/auth/login/',user);
+    return result.data;
 };
 
 const AccountService = {
-  signUpUser
+  signUpUser,
+  logInUser
 };
 
 export default AccountService;
