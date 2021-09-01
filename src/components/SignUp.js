@@ -29,6 +29,7 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
   const history = useHistory();
 
@@ -51,6 +52,17 @@ const Signup = () => {
       });
   };
 
+  const validateRequired = (str, value) => {
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    let values = {...error}
+    !value ? values[str]= true : values[str]= false
+    if(str === 'email'){
+      !value.match(regex) ? values['regex']= true : values['regex']= false 
+    }
+
+    setError(values)
+  }
+
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
@@ -68,8 +80,11 @@ const Signup = () => {
           autoComplete="username"
           autoFocus
           onChange={(e) => {
-            setUsername(e.target.value);
+            setUsername(e.target.value)
+            validateRequired('username', username)
           }}
+          onBlur={(e) => {validateRequired('username', username)}}
+          error={error.username}
         />
         <TextField
           variant="outlined"
@@ -83,7 +98,10 @@ const Signup = () => {
           autoFocus
           onChange={(e) => {
             setEmail(e.target.value);
+            validateRequired('email', email)
           }}
+          onBlur={(e) => {validateRequired('email', email)  }}
+          error={error.email || error.regex}
         />
         <TextField
           variant="outlined"
@@ -97,7 +115,10 @@ const Signup = () => {
           autoComplete="current-password"
           onChange={(e) => {
             setPassword(e.target.value);
+            validateRequired('password', password)
           }}
+          onBlur={(e) => {validateRequired('password', password) }}
+          error={error.password}
         />
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
