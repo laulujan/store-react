@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
@@ -7,26 +7,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { Link } from 'react-router-dom';
+import fetchStore from '../api/fetchStore';
 
-
-let items = [
-    {
-        "col_id": 1,
-        "title": "Hats",
-        "item_id": 9,
-        "name": "Blue Snapback",
-        "price": 16,
-        "imageUrl": "https://i.ibb.co/X2VJP2W/blue-snapback.png"
-    },
-    {
-        "col_id": 2,
-        "title": "Jackets",
-        "item_id": 11,
-        "name": "Blue Jean Jacket",
-        "price": 90,
-        "imageUrl": "https://i.ibb.co/mJS6vz0/blue-jean-jacket.png"
-    },
-]
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -43,7 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutTable = () => {
     const classes = useStyles();
+    const [items, setItems] =  useState([]);
 
+    useEffect(() => {
+        fetchStore().then(fields => setItems(fields));
+        console.log('items are ', items);
+    }, []);
+
+    console.log()
     let total = 0;
 
     const [quantity, setQuantity] = useState(1)
