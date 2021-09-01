@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,6 +8,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
+
+import AccountService from "../api/AccountService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,12 +29,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
+  const history = useHistory();
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(username, password);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    const user = {
+      displayName: username,
+      email: email,
+      password: password,
+    };
+    console.log(user);
+
+    AccountService.logInUser(user)
+      .then((result) => {
+        console.log(result.data.token);
+        history.push("/");
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
   };
 
   return (
@@ -52,6 +76,20 @@ const Login = () => {
           autoFocus
           onChange={(e) => {
             setUsername(e.target.value);
+          }}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          onChange={(e) => {
+            setEmail(e.target.value);
           }}
         />
         <TextField
@@ -83,7 +121,7 @@ const Login = () => {
         </Button>
         <Grid container>
           <Grid item>
-            <Link href="/sign-in" variant="body2">
+            <Link href="/sign-up" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

@@ -8,7 +8,7 @@ import {
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
-import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 
 import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
@@ -26,8 +26,8 @@ export default function Router() {
           <Route path="/shop">
             <Shop />
           </Route>
-          <Route path="/sign-in">
-            <SignIn />
+          <Route path="/sign-up">
+            <SignUp />
           </Route>
           <Route path="/login">
             <LogIn />

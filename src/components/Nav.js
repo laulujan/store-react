@@ -98,7 +98,7 @@ const Nav = () => {
               href="/login"
               className={classes.link}
             >
-              Sign In
+              Log In
             </Link>
             <IconButton aria-label="cart" onClick={handleClick}>
               <StyledBadge badgeContent={4} color="secondary">

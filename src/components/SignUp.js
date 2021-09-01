@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
+
+import AccountService from "../api/AccountService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,16 +30,31 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
+  const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, email, password);
+    const user = {
+      displayName: username,
+      email: email,
+      password: password,
+    };
+    console.log(user);
+
+    AccountService.signUpUser(user)
+      .then((result) => {
+        alert('Signed up succesfully, now you can log in!');
+        history.push("/login");
+      })
+      .catch((error) => {
+        alert('Registration failed :(');
+      });
   };
 
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Sign in
+        Sign up
       </Typography>
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
@@ -92,7 +110,7 @@ const Signup = () => {
           color="primary"
           className={classes.submit}
         >
-          Sign In
+          Sign Up
         </Button>
       </form>
     </div>
