@@ -6,13 +6,12 @@ const jwtDecode = (tokenString) => {
 
 const isSignedIn = () => {
     try {
-        //const myJWT = 
-        jwtDecode(localStorage.getItem("jwt"));
-        // const isTokenActive = ( new Date( parseInt(myJWT.exp) * 1000 ) - new Date(Date.now()) ) > 0;
-        // if (!isTokenActive) {
-        //     localStorage.removeItem("jwt");
-        // }
-        return true;//isTokenActive;
+        const myJWT = jwtDecode(localStorage.getItem("jwt"));
+        const isTokenActive = ( new Date( parseInt(myJWT.exp) * 1000 ) - new Date(Date.now()) ) > 0;
+        if (!isTokenActive) {
+            localStorage.removeItem("jwt");
+        }
+        return isTokenActive;
     } catch {
         return false;
     }
