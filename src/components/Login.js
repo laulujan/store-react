@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
 import AccountService from "../api/AccountService";
+import JWTUtil from "../util/JWTUtil";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,7 +51,8 @@ const Login = () => {
 
     AccountService.logInUser(user)
       .then((result) => {
-        console.log(result.data.token);
+        //console.log(result.data.token);
+        //JWTUtil.
         history.push("/");
       })
       .catch((error) => {
