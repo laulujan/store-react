@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%", 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -31,8 +31,10 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
   const history = useHistory();
+  
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -58,12 +60,25 @@ const Login = () => {
       });
   };
 
+  const validateRequired = (str, value) => {
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    let values = {...error}
+    !value ? values[str]= true : values[str]= false
+    if(str === 'email'){
+      !value.match(regex) ? values['regex']= true : values['regex']= false 
+    }
+
+    setError(values)
+  }
+  
+
+
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
         Login
       </Typography>
-      <form className={classes.form} noValidate onSubmit={handleSubmit}>
+      <form className={classes.form} validate onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -73,10 +88,12 @@ const Login = () => {
           label="Username"
           name="username"
           autoComplete="username"
-          autoFocus
           onChange={(e) => {
-            setUsername(e.target.value);
+            setUsername(e.target.value)
+            validateRequired('username', username)
           }}
+          onBlur={(e) => {validateRequired('username', username)}}
+          error={error.username}
         />
         <TextField
           variant="outlined"
@@ -87,10 +104,12 @@ const Login = () => {
           label="Email"
           name="email"
           autoComplete="email"
-          autoFocus
           onChange={(e) => {
             setEmail(e.target.value);
+            validateRequired('email', email)
           }}
+          onBlur={(e) => {validateRequired('email', email)  }}
+          error={error.email || error.regex}
         />
         <TextField
           variant="outlined"
@@ -104,7 +123,10 @@ const Login = () => {
           autoComplete="current-password"
           onChange={(e) => {
             setPassword(e.target.value);
+            validateRequired('password', password)
           }}
+          onBlur={(e) => {validateRequired('password', password) }}
+          error={error.password}
         />
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
