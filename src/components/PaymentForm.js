@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import  { TextField, Button }  from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import  { TextField, Button, Select}  from "@material-ui/core";
+import  { FormControl, InputLabel, MenuItem, Grid, Box }  from "@material-ui/core";
+import { makeStyles} from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";  
 
 const useStyles = makeStyles(theme => ({
     root: {
         margin: 'auto',
         display: 'inline-block', 
+        width: '70%',
         '& .MuiFormControl-root': {
-            width: '50%',
+            width: '70%',
             margin: theme.spacing(1), 
         }
     },
@@ -22,25 +24,50 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(3, 0, 2),
     }, 
     styledMessage: {
-        textAlign: 'center',
         margin: '2rem',
-    }
-}))
+    },
+    styledGrid: {
+        width: '70%',
+        margin: 'auto',
+        textAlign: 'center',
+    }, 
 
-const initialFValues = {
-    id: 0, 
-    firstName: '',
-    lastName: '', 
-    creditCardNumber: '',
-    securityCode: '',
-    cardExpiration: '',
-}
+}))
 
 
 export default function PaymentForm() {
+    const monthsList = ['January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const yearsList = ['2022', '2023', '2024', '2025']
+    const initialFValues = {
+        id: 0, 
+        firstName: '',
+        lastName: '', 
+        creditCardNumber: '',
+        securityCode: '',
+    }
+
     const classes = useStyles();
     const history = useHistory();
     const [values, setValues] = useState(initialFValues);
+    const [errors, setErrors] = useState({});
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
+
+    const numRegExp =  /\d{3}/;
+    const cardRegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/
+    const nameRegExp = /^[A-Za-z]{3,25}$/
+
+    const validate = () => {         
+        let temp ={}         
+        temp.firstName = values.firstName.match(nameRegExp) ? '': 'Name field should be alphabetic and 3-25 characters.';         
+        temp.lastName = values.lastName.match(nameRegExp) ? '': 'Name field should be alphabetic and 3-25 characters.';         
+        temp.creditCardNumber = values.creditCardNumber.match(cardRegExp) ? '': 'Invalid credit card number.';         
+        temp.securityCode = values.securityCode.match(numRegExp) ? '': 'Invalid security code';         
+        setErrors({
+            ...temp
+        })
+        return Object.values(temp).every( x => x == '')
+    }
 
     const handleInputChange = e => {
         const {name, value} = e.target
@@ -53,12 +80,21 @@ export default function PaymentForm() {
 
     const handleSubmit = e => {   
         e.preventDefault();
-        console.log('Yey');
-        history.push('/successfull-payment');
+        if (validate()) {
+            history.push('/successfull-payment');
+        }
     }
 
+    const handleChangeMonth = (event) => {
+      setMonth(event.target.value);
+    };
+    const handleChangeYear = (event) => {
+        setYear(event.target.value);
+      };
+  
+
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper}> 
             <form className={classes.root} onSubmit={handleSubmit}> 
                         <Typography
                             variant="h6"
@@ -75,6 +111,8 @@ export default function PaymentForm() {
                             name='firstName'
                             helperText="First Name"
                             onChange= {handleInputChange}
+                            helperText="First Name"
+                            {...(errors.firstName && {error: true, helperText: errors.firstName })}
                             >
                         </TextField>
                         <TextField  
@@ -83,6 +121,7 @@ export default function PaymentForm() {
                             value={values.lastName}
                             name='lastName'
                             helperText="Last Name"
+                            {...(errors.lastName && {error: true, helperText: errors.lastName })}
                             onChange= {handleInputChange}
                             >
                         </TextField>  
@@ -93,6 +132,7 @@ export default function PaymentForm() {
                             value={values.creditCardNumber}
                             name='creditCardNumber'
                             helperText="Credit card number"
+                            {...(errors.creditCardNumber && {error: true, helperText: errors.creditCardNumber })}
                             onChange= {handleInputChange}
                             >
                         </TextField>
@@ -103,19 +143,54 @@ export default function PaymentForm() {
                             value={values.securityCode}
                             name='securityCode'
                             helperText="Security code"
+                            {...(errors.securityCode && {error: true, helperText: errors.securityCode })}  
                             onChange= {handleInputChange}
                             >
                         </TextField>
-                        <TextField  
-                            variant = 'outlined'
-                            required
-                            label = 'Card Expiration'
-                            value={values.cardExpiration}
-                            name='cardExpiration'
-                            helperText="Card Expiration"
-                            onChange= {handleInputChange}
-                            >
-                        </TextField>
+                        <Grid container className={classes.styledGrid}>
+                            <Grid item xs={4}> 
+                            <Box
+                                display="flex"
+                                alignItems="center"
+                                p={1}
+                                m={2}
+                            >Expiration Date</Box>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel>Month</InputLabel>
+                                    <Select
+                                    value={month}
+                                    onChange={handleChangeMonth}
+                                    label="Month"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {monthsList.map((item) => (
+                                        <MenuItem value={item}>{item}</MenuItem>
+                                    ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel>Year</InputLabel>
+                                    <Select
+                                    value={year}
+                                    onChange={handleChangeYear}
+                                    label="Year"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {yearsList.map((item) => (
+                                        <MenuItem value={item}>{item}</MenuItem>
+                                    ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
                     <div> 
                         <Button
                             type="submit"
