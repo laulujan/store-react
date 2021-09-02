@@ -41,14 +41,17 @@ const Signup = () => {
     };
 
     AccountService.signUpUser(user)
-      .then(AccountService.logInUser(user))
-      .then((result) => {
-          localStorage.setItem("jwt", result.token);
-          alert('Signed up successfully, now you are logged in to your new account');
-          history.push("/");
+      .then((result1) => {
+        console.log(result1);
+        return AccountService.logInUser(user);
+      })
+      .then((result2) => {
+        localStorage.setItem("jwt", result2.data.token);
+        alert('Signed up successfully, now you are logged in to your new account');
+        history.push("/");
       })
       .catch((error) => {
-        alert(error?.response?.data?.message || "something went wrong :(");
+        alert(error?.response?.data?.message || error);// 
       });
   };
 
