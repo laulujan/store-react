@@ -12,7 +12,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "red",
   },
   cardBox: {
     display: "flex",
