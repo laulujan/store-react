@@ -8,7 +8,16 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     height: "90%",
-    padding: "4em 2em 4em 2em",
+    padding: "4em 0em 4em 0em",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "red",
+  },
+  cardBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
 
@@ -27,6 +36,7 @@ const CategoriesContainer = () => {
                 {
                     categoryDisplayInfo.map((category, index) => (
                         <Grid 
+                            className={classes.cardBox}
                             item 
                             key={index}
                             xs={4}
