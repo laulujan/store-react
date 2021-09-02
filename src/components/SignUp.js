@@ -41,12 +41,8 @@ const Signup = () => {
     };
 
     AccountService.signUpUser(user)
-      .then((result1) => {
-        console.log(result1);
-        return AccountService.logInUser(user);
-      })
-      .then((result2) => {
-        localStorage.setItem("jwt", result2.data.token);
+      .then((result) => {
+        localStorage.setItem("jwt", result.data.token);
         alert('Signed up successfully, now you are logged in to your new account');
         history.push("/");
       })
