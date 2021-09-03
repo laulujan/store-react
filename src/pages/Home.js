@@ -1,9 +1,10 @@
 import React from 'react';
+import CategoriesContainer from "../components/CategoriesContainer";
 
 const Home = () => {
     return (
         <div>
-            components for homepage go here
+            <CategoriesContainer/>
         </div>
     );
 };
