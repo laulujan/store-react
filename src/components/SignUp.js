@@ -40,15 +40,15 @@ const Signup = () => {
       email: email,
       password: password,
     };
-    console.log(user);
 
     AccountService.signUpUser(user)
       .then((result) => {
-        alert('Signed up succesfully, now you can log in!');
-        history.push("/login");
+        localStorage.setItem("jwt", result.data.token);
+        alert('Signed up successfully, now you are logged in to your new account');
+        history.push("/");
       })
       .catch((error) => {
-        alert('Registration failed :(');
+        alert(error?.response?.data?.message || error);// 
       });
   };
 

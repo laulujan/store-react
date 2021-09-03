@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
 import AccountService from "../api/AccountService";
+//import JWTUtil from "../util/JWTUtil";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,11 +37,6 @@ const Login = () => {
   const history = useHistory();
   
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(username, password);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
@@ -48,11 +44,10 @@ const Login = () => {
       email: email,
       password: password,
     };
-    console.log(user);
 
     AccountService.logInUser(user)
       .then((result) => {
-        console.log(result.data.token);
+        localStorage.setItem("jwt", result.data.token);
         history.push("/");
       })
       .catch((error) => {

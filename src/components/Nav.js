@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import ShoppingCartPreview from "./ShoppingCartPreview";
+import JWTUtil from "../util/JWTUtil";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -92,6 +93,15 @@ const Nav = () => {
             >
               Shop
             </Link>
+            {JWTUtil.isSignedIn() ?
+            <Link
+              variant="button"
+              color="textPrimary"
+              onClick={JWTUtil.signOut}
+              className={classes.link}
+            >
+              Log Out
+            </Link> :
             <Link
               variant="button"
               color="textPrimary"
@@ -99,7 +109,7 @@ const Nav = () => {
               className={classes.link}
             >
               Log In
-            </Link>
+            </Link>}
             <IconButton aria-label="cart" onClick={handleClick}>
               <StyledBadge badgeContent={4} color="secondary">
                 <ShoppingCartIcon />
