@@ -88,7 +88,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/shop"
+              href="/directory"
               className={classes.link}
             >
               Shop
