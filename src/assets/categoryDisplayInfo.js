@@ -19,13 +19,13 @@ export const categoryDisplayInfo = [
     },
     {
         id: 4,
-        name: "Men",
+        name: "Mens",
         filename: "men.png",
         alt: "Men icon by Vladimir Belochkin from the Noun Project",
     },
     {
         id: 5,
-        name: "Women",
+        name: "Womens",
         filename: "women.png",
         alt: "Women icon by Vladimir Belochkin from the Noun Project",
     },

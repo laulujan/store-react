@@ -35,7 +35,7 @@ export default function Router() {
           <Route path="/directory">
             <Directory />
           </Route>
-          <Route path="/category">
+          <Route path="/category/:category">
             <Category />
           </Route>
           <Route path="/checkout">
