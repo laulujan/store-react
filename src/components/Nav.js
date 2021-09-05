@@ -128,17 +128,7 @@ const Nav = () => {
             <ShoppingCartPreview
               anchorEl={anchorEl}
               handleClose={handleClose}
-              items={[
-                {
-                  col_id: 5,
-                  title: "Womens",
-                  item_id: 30,
-                  name: "Floral Blouse",
-                  price: 20,
-                  imageUrl: "https://i.ibb.co/4W2DGKm/floral-blouse.png",
-                  quantity: 1
-                },
-              ]}
+              items={cartItems}
             ></ShoppingCartPreview>
           </nav>
         </Toolbar>
