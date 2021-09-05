@@ -10,7 +10,7 @@ import rootReducer from "./root-reducer";
 
 export const store = configureStore({
     devTools: true,
-    reducer: rootReducer,
+    reducer: rootReducer, 
     // middleware: [sagaMiddleware],
   });
 
