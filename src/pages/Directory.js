@@ -21,6 +21,7 @@ const Directory = () => {
     const classes = useStyles();
 
     const dummyProductsAll = useSelector(state => state.cart.products);
+
     const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
         return product.title;
     }));
