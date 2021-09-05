@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -7,9 +7,9 @@ import Link from "@material-ui/core/Link";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
 import ShoppingCartPreview from "./ShoppingCartPreview";
 import JWTUtil from "../util/JWTUtil";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -46,7 +46,11 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Nav = () => {
+  const classes = useStyles();
+  const cartItems = useSelector(state => state.cart.cartItems)
+
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cartCount, setCartCount] = useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,7 +60,13 @@ const Nav = () => {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
+  useEffect(() => {
+    let count = 0;
+    cartItems.forEach(item =>
+      count += item.quantity
+    );
+    setCartCount(count);
+  }, [cartItems])
 
   return (
     <div className={classes.root}>
@@ -111,7 +121,7 @@ const Nav = () => {
               Log In
             </Link>}
             <IconButton aria-label="cart" onClick={handleClick}>
-              <StyledBadge badgeContent={4} color="secondary">
+              <StyledBadge badgeContent={cartCount} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>

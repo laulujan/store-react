@@ -36,7 +36,6 @@ const Directory = () => {
                         rowName={category}
                         rawData={dummyProductsAll}
                         top5={true}
-                        
                     />
                     </Grid>
                 ))
