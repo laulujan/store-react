@@ -1,18 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-//should uncomment this once defined
-// import createSagaMiddleware from "redux-saga";
+import createSagaMiddleware from "redux-saga";
 
 import rootReducer from "./root-reducer";
-// import rootSaga from "./root-saga";
+import rootSaga from "./root-saga";
 
-// const sagaMiddleware = createSagaMiddleware();
+import { createBrowserHistory } from "history";
+export const history = createBrowserHistory();
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
     devTools: true,
-    reducer: rootReducer,
-    // middleware: [sagaMiddleware],
+    reducer: rootReducer(history),
+    middleware: [sagaMiddleware],
   });
 
-// sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 export default store;

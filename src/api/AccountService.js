@@ -31,7 +31,7 @@ import axios from "axios";
 
 const signUpUser = async (user) => {
     const result = await axios.post('http://localhost:5000/api/auth/',user);
-    return result.data;
+    return result;
 };
 
 const logInUser = async (user) => {
@@ -39,9 +39,9 @@ const logInUser = async (user) => {
     return result.data;
 };
 
-const AccountService = {
+const accountService = {
   signUpUser,
   logInUser
 };
 
-export default AccountService;
+export default accountService;

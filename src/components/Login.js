@@ -1,4 +1,5 @@
 import React, {  useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -9,7 +10,8 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
-import AccountService from "../api/AccountService";
+//import accountService from "../api/accountService";
+import { logIn } from "../redux/user/reducer";
 //import JWTUtil from "../util/JWTUtil";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,26 +37,21 @@ const Login = () => {
   const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
   const history = useHistory();
-  
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+
+  if (token) history.push("/");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
+    const credentials = {
       displayName: username,
       email: email,
       password: password,
     };
 
-    AccountService.logInUser(user)
-      .then((result) => {
-        localStorage.setItem("jwt", result.data.token);
-        history.push("/");
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+    dispatch(logIn(credentials));
   };
-
   const validateRequired = (str, value) => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     let values = {...error}

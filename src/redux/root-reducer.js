@@ -1,9 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import { connectRouter } from "connected-react-router";
 
 import userReducer from "./user/reducer";
 import cartReducer from "./cart/reducer";
 
-export const rootReducer = combineReducers({
+export const rootReducer = (history) =>combineReducers({
+  router: connectRouter(history),
   user: userReducer,
   cart: cartReducer,
 });

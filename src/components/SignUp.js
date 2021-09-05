@@ -7,7 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
-import AccountService from "../api/AccountService";
+import accountService from "../api/accountService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,7 +41,7 @@ const Signup = () => {
       password: password,
     };
 
-    AccountService.signUpUser(user)
+    accountService.signUpUser(user)
       .then((result) => {
         localStorage.setItem("jwt", result.data.token);
         alert('Signed up successfully, now you are logged in to your new account');

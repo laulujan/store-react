@@ -1,6 +1,6 @@
 import React from "react";
+import { ConnectedRouter } from "connected-react-router";
 import {
-  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
@@ -15,11 +15,15 @@ import CheckOut from './pages/CheckOut';
 import SuccessfullCheckOut from './pages/SuccessfullPayment';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
-import Nav from './components/Nav'
+import Nav from './components/Nav';
+
+import { history } from "./redux/store";
+
+Window.nav = history;
 
 export default function Router() {
   return (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <div>
         <Nav />
         <Switch>
@@ -52,6 +56,6 @@ export default function Router() {
           </Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </ConnectedRouter>
   );
 }

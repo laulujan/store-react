@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,7 +10,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import ShoppingCartPreview from "./ShoppingCartPreview";
-import JWTUtil from "../util/JWTUtil";
+//import store from "../redux/store";
+//import JWTUtil from "../util/JWTUtil";
+import { logOut } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -47,6 +50,14 @@ const StyledBadge = withStyles((theme) => ({
 
 const Nav = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  //const token = store.getState().user.token;
+  const token = useSelector((state) => state.user.token);
+  console.log(token);
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,11 +104,11 @@ const Nav = () => {
             >
               Shop
             </Link>
-            {JWTUtil.isSignedIn() ?
+            {token ?
             <Link
               variant="button"
               color="textPrimary"
-              onClick={JWTUtil.signOut}
+              onClick={handleLogOut}
               className={classes.link}
             >
               Log Out
