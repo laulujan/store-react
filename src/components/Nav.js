@@ -53,7 +53,7 @@ const Nav = () => {
   const dispatch = useDispatch();
   //const token = store.getState().user.token;
   const token = useSelector((state) => state.user.token);
-  console.log(token);
+  //console.log(token);
 
   const handleLogOut = () => {
     dispatch(logOut());

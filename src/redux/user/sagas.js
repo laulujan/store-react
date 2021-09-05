@@ -13,20 +13,18 @@ import {
 import accountService from "../../api/accountService";
 
 function* displayError(message) {
-  yield call(console.log, message);
+  yield call(alert, message);
 }
 
 function* onLogIn(action) {
   const result = yield call(accountService.logInUser, action.payload);
   const { success, data, message } = result;
   if (success) {
-    yield console.log("holis");
-    yield console.log(message);
     yield put(setToken(data.token));
     yield window.localStorage.setItem("user-token", data.token);
     yield call(Window.nav.push, "/");
   } else {
-    yield call(displayError, result);
+    yield call(displayError, message);
   }
 }
 
