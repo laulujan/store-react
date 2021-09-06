@@ -78,19 +78,20 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
                 {productInfo.name}
               </Typography>
             </Grid>
-            <Grid container  xs={4}>
-              <Grid item className={classes.cardRight} xs={12}>
-                <Typography variant={priceLabelSize} color="textSecondary">
-                  $ {productInfo.price}
-                </Typography>
-              </Grid>
-              <Grid item className={classes.cardRight} xs={12}>
-                  <IconButton className={classes.addToCartButton} variant="contained" aria-label="add to shopping cart" onClick={addToCartHandler}>
-                    <AddShoppingCartIcon className={classes.addToCartIcon} />
-                  </IconButton>
+            <Grid item xs={4}>
+              <Grid container>
+                <Grid item className={classes.cardRight} xs={12}>
+                  <Typography variant={priceLabelSize} color="textSecondary">
+                    $ {productInfo.price}
+                  </Typography>
+                </Grid>
+                <Grid item className={classes.cardRight} xs={12}>
+                    <IconButton className={classes.addToCartButton} variant="contained" aria-label="add to shopping cart" onClick={addToCartHandler}>
+                      <AddShoppingCartIcon className={classes.addToCartIcon} />
+                    </IconButton>
+                </Grid>
               </Grid>
             </Grid>
-            
           </Grid>
         </CardContent>
       </CardActionArea>
