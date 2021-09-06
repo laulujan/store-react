@@ -51,9 +51,7 @@ const Nav = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  //const token = store.getState().user.token;
   const token = useSelector((state) => state.user.token);
-  //console.log(token);
 
   const handleLogOut = () => {
     dispatch(logOut());

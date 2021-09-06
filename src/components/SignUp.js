@@ -8,7 +8,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
-//import accountService from "../api/accountService";
 import { signUp } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({

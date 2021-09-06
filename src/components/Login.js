@@ -10,9 +10,7 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
-//import accountService from "../api/accountService";
 import { logIn } from "../redux/user/reducer";
-//import JWTUtil from "../util/JWTUtil";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
