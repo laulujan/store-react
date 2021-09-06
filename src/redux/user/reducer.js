@@ -23,6 +23,7 @@ const userSlice = createSlice({
 });
 
 export const logIn = createAction("user/login");
+export const signUp = createAction("user/signup");
 
 export default userSlice.reducer;
 export const { setToken, setUser, logOut } = userSlice.actions;

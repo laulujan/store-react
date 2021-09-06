@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -7,7 +8,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
-import accountService from "../api/accountService";
+//import accountService from "../api/accountService";
+import { signUp } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,24 +34,21 @@ const Signup = () => {
   const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
 
+  if (token) history.push("/");
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
+    const credentials = {
       displayName: username,
       email: email,
       password: password,
     };
 
-    accountService.signUpUser(user)
-      .then((result) => {
-        localStorage.setItem("jwt", result.data.token);
-        alert('Signed up successfully, now you are logged in to your new account');
-        history.push("/");
-      })
-      .catch((error) => {
-        alert(error?.response?.data?.message || error);// 
-      });
+    dispatch(signUp(credentials));
   };
 
   const validateRequired = (str, value) => {
