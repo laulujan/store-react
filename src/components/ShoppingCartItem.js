@@ -9,6 +9,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import { makeStyles } from "@material-ui/core/styles";
 import { removeFromCart } from '../redux/cart/reducer';
 import { useDispatch } from 'react-redux';
+import { increment } from "../redux/cart/reducer";
 
 
 
@@ -31,10 +32,13 @@ const useStyles = makeStyles(() => ({
 const ShoppingCart = ({ item }) => {
   const dispatch = useDispatch();
   const [itemTotal, setItemTotal] = useState(0);
+  // const [numItems, setNumItems] = useState(item.quantity);
+  
   // const [quantity, setQuantity] = useState(item.quantity)
 
-  // const addItem = (e) => {
-  //   setQuantity(quantity + 1)
+  // const addItem = () => {
+  //   setNumItems(numItems + 1);
+  //   dispatch(increment(item.item_id));
   // }
   // const removeItem = (e) => {
   //   setQuantity(quantity - 1)
@@ -49,7 +53,7 @@ const ShoppingCart = ({ item }) => {
   useEffect(() => {
     let currentTotal = item.quantity * item.price
     setItemTotal(currentTotal)
-  }, [itemTotal, setItemTotal]);
+  }, [itemTotal, setItemTotal, item.quantity]);
 
   const classes = useStyles();
   return (
@@ -72,7 +76,7 @@ const ShoppingCart = ({ item }) => {
             <Typography variant="body2">{item.quantity}</Typography>
 
             {/* <IconButton onClick={addItem}> */}
-            <IconButton>
+            <IconButton onClick={() => {dispatch(increment(item.item_id))}}>
               <AddIcon />
             </IconButton>
             <Typography variant="body2">Total ${itemTotal}</Typography>
