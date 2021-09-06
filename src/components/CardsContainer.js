@@ -18,10 +18,6 @@ const getProductsForDisplay = (allProducts,myFilter,keepOnly5) => {
 const CardsContainer = ({rowName, rawData, top5}) => {
     const productsForDisplay = getProductsForDisplay(rawData,rowName,top5);
     const dispatch = useDispatch();
-    // const addToCartAction = () => {
-    //     alert("you added a product to the cart :)");
-    // };
-    //console.log(rowName);
     return (
         <div>
             <Grid 
@@ -43,10 +39,7 @@ const CardsContainer = ({rowName, rawData, top5}) => {
                         <Grid item key={index}>
                             <ProductCard
                             productInfo={product} 
-                            addToCartHandler={() => {
-                                console.log(product.item_id);
-                                dispatch(addToCart(product.item_id));
-                            }}
+                            addToCartHandler={() => {dispatch(addToCart(product.item_id))}}
                             isCardSmall={top5}
                             />
                         </Grid>
