@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CardsContainer from '../components/CardsContainer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import  { setProducts }  from "../redux/products/reducer"
+
 // import { productsResponse } from '../dummydata/dummy_products';
 
 
@@ -20,21 +22,27 @@ const useStyles = makeStyles({
 const Directory = () => {
     const classes = useStyles();
 
-    const dummyProductsAll = useSelector(state => state.cart.products);
+    const productsList = useSelector(state => state.products);
+    const {products, loading, error } = productsList;
+    const dispatch = useDispatch()
 
-    const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
+    useEffect(()=>{
+        dispatch(setProducts())
+    }, [dispatch])
+
+    const productCategories = new Set(products.map((product) => {
         return product.title;
     }));
 
-    return (
+    return  loading ? <div>loading..</div> : error ? <div>{error}</div> : (
         <Grid container className={classes.directoryContainer}>
             {
-                [...dummyProductCategories].map((category, index) => (
+                [...productCategories].map((category, index) => (
                     <Grid item xs={12} className={classes.categoryRow}>
                         <CardsContainer
                         key={index}
                         rowName={category}
-                        rawData={dummyProductsAll}
+                        rawData={products}
                         top5={true}
                     />
                     </Grid>
