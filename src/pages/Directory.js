@@ -3,13 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CardsContainer from '../components/CardsContainer';
-import { productsResponse } from '../dummydata/dummy_products';
+import { useSelector } from 'react-redux';
+// import { productsResponse } from '../dummydata/dummy_products';
 
-const dummyProductsAll = productsResponse.data;
-
-const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
-    return product.title;
-}));
 
 const useStyles = makeStyles({
     directoryContainer: {
@@ -23,6 +19,13 @@ const useStyles = makeStyles({
 
 const Directory = () => {
     const classes = useStyles();
+
+    const dummyProductsAll = useSelector(state => state.cart.products);
+
+    const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
+        return product.title;
+    }));
+
     return (
         <Grid container className={classes.directoryContainer}>
             {
@@ -33,7 +36,6 @@ const Directory = () => {
                         rowName={category}
                         rawData={dummyProductsAll}
                         top5={true}
-                        
                     />
                     </Grid>
                 ))
