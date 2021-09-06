@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,10 +8,7 @@ import Link from "@material-ui/core/Link";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
 import ShoppingCartPreview from "./ShoppingCartPreview";
-//import store from "../redux/store";
-//import JWTUtil from "../util/JWTUtil";
 import { logOut } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +46,9 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Nav = () => {
+  const classes = useStyles();
+  const cartItems = useSelector(state => state.cart.cartItems)
+
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   //const token = store.getState().user.token;
@@ -58,6 +58,7 @@ const Nav = () => {
   const handleLogOut = () => {
     dispatch(logOut());
   };
+  const [cartCount, setCartCount] = useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,7 +68,13 @@ const Nav = () => {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
+  useEffect(() => {
+    let count = 0;
+    cartItems.forEach(item =>
+      count += item.quantity
+    );
+    setCartCount(count);
+  }, [cartItems])
 
   return (
     <div className={classes.root}>
@@ -122,24 +129,14 @@ const Nav = () => {
               Log In
             </Link>}
             <IconButton aria-label="cart" onClick={handleClick}>
-              <StyledBadge badgeContent={4} color="secondary">
+              <StyledBadge badgeContent={cartCount} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
             <ShoppingCartPreview
               anchorEl={anchorEl}
               handleClose={handleClose}
-              items={[
-                {
-                  col_id: 5,
-                  title: "Womens",
-                  item_id: 30,
-                  name: "Floral Blouse",
-                  price: 20,
-                  imageUrl: "https://i.ibb.co/4W2DGKm/floral-blouse.png",
-                  quantity: 1
-                },
-              ]}
+              items={cartItems}
             ></ShoppingCartPreview>
           </nav>
         </Toolbar>

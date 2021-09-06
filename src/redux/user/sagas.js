@@ -22,6 +22,7 @@ function* onLogIn(action) {
   if (success) {
     yield put(setToken(data.token));
     yield window.localStorage.setItem("user-token", data.token);
+    yield console.log("signing in");
     yield call(Window.nav.push, "/");
   } else {
     yield call(displayError, message);
@@ -30,6 +31,7 @@ function* onLogIn(action) {
 
 function* onLogOut() {
   yield window.localStorage.removeItem("user-token");
+  yield console.log("signing out");
   yield call(Window.nav.push, "/");
 }
 
