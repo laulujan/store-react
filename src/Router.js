@@ -5,6 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import Private from "./components/Private";
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
@@ -45,9 +46,13 @@ export default function Router() {
           <Route path="/category/:category">
             <Category />
           </Route>
-          <Route path="/checkout">
+          <Private 
+            path="/checkout"
+            isAuthenticated={token}
+            redirectTo="/login"
+          >
             <CheckOut />
-          </Route>
+          </Private>
           <Route path="/successfull-payment">
             <SuccessfullCheckOut />
           </Route>
