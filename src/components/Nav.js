@@ -73,7 +73,7 @@ const Nav = () => {
             href="/"
             className={classes.link}
           >
-            <img src="dummylogo.png" alt="logo" className={classes.logo} />
+            <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
 
           <Typography
