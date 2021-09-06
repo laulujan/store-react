@@ -91,7 +91,7 @@ const Nav = () => {
             href="/"
             className={classes.link}
           >
-            <img src="dummylogo.png" alt="logo" className={classes.logo} />
+            <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
 
           <Typography
@@ -106,7 +106,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/shop"
+              href="/directory"
               className={classes.link}
             >
               Shop
