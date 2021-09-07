@@ -24,7 +24,7 @@ const Spinner = () => {
   return (
     <div className={classes.root}>
       <CircularProgress className={classes.center}/>
-      <Typography className={classes.center}>Loading..</Typography>
+      <Typography className={classes.center}>Loading...</Typography>
     </div>
   );
 }
