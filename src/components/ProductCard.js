@@ -11,17 +11,32 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function ProductCard({productInfo, addToCartHandler, isCardSmall}) {
-  const cardWidth = isCardSmall ? 12 : 20;
-  const cardHeightRatio = isCardSmall ? 1.0 : 0.88;
+  const cardWidth =  isCardSmall ? 14 : 20;
+  const cardHeightRatio = 1.2;
+  const cardHeight = cardWidth*cardHeightRatio;
+  const cardMediaHeightRatio = 0.8;
+  const cardBottomHeightRatio = 1 - cardMediaHeightRatio;
   const cardTitleSize = isCardSmall ? "subtitle1" : "h6";
   const priceLabelSize = `body${isCardSmall ? 2 : 1}`;
   const useStyles = makeStyles({
     root: {
-      width: `${cardWidth}em`,
-      height: `${cardWidth*cardHeightRatio}em`,
+      width: `${cardWidth}rem`,
+      height: `${cardHeight}rem`,
+    },
+    cardInside: {
+      height: `${cardHeight}rem`,
+      padding: 0,
     },
     media: {
-      height: `${cardWidth*0.75}em`,
+      height: `${cardHeight*cardMediaHeightRatio}rem`,
+      margin: 0,
+    },
+    cardBottom: {
+      height: `${cardHeight*cardBottomHeightRatio}rem`,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: "0rem 0.6rem 0rem 0.6rem",
     },
     
     cardInfo: {
@@ -29,8 +44,8 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
       flexDirection: "row",
       justifyContent: "flex-end",
       alignItems: "center",
-      padding: "0em",
-      margin: "0em",
+      padding: 0,
+      margin: 0,
     },
     cardTitle: {
       lineHeight: "1.2em",
@@ -49,13 +64,13 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
       
     },
     addToCartButton: {
-      width: "1em",
-      height: "1em",
+      width: "1rem",
+      height: "1rem",
       backgroundColor: "grey",
     },
     addToCartIcon: {
-      width: "0.8em",
-      height: "0.8em",
+      width: "0.8rem",
+      height: "0.8rem",
       color: "white",
     }
   });
@@ -63,13 +78,13 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea component="div" className={classes.cardInside}>
         <CardMedia
           className={classes.media}
           image={productInfo.imageUrl}
           title={productInfo.name}
         />
-        <CardContent styles={{backgroundColor: "yellow"}}>
+        <CardContent className={classes.cardBottom}>
           <Grid container className={classes.cardInfo}>
             <Grid item className={classes.cardLeft} xs={8}>
               <Typography variant={cardTitleSize} className={classes.cardTitle}>
