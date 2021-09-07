@@ -14,7 +14,7 @@ import SignUp from './pages/SignUp'
 
 import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
-import SuccessfullCheckOut from './pages/SuccessfullPayment';
+import SuccessfulCheckOut from './pages/SuccessfulPayment';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
 import Nav from './components/Nav';
@@ -56,8 +56,8 @@ export default function Router() {
           >
             <CheckOut />
           </Private>
-          <Route path="/successfull-payment">
-            <SuccessfullCheckOut />
+          <Route path="/successful-payment">
+            <SuccessfulCheckOut />
           </Route>
           <Route path="/process-payment">
             <ProcessPayment />
