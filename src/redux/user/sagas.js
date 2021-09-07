@@ -23,7 +23,7 @@ function* onLogIn(action) {
     const result = yield call(accountService.logInUser, action.payload);
     const { success, data, message } = result.data;
     if (success) {
-      yield put(setToken(data.token));
+      yield put(setToken(data.token)); // WARNING 
       yield window.localStorage.setItem("user-token", data.token);
       yield console.log("signing in");
       yield call(Window.nav.push, "/");
@@ -43,7 +43,7 @@ function* onSignUp(action) {
     if (success) {
       yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
-      yield console.log("signing in");
+      yield console.log("signing up");
       yield call(Window.nav.push, "/");
     } else {
       yield call(displayError, message);

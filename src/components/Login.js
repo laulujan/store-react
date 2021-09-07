@@ -36,9 +36,9 @@ const Login = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
+  //const token = useSelector((state) => state.user.token);
 
-  if (token) history.push("/");
+  //if (token) history.push("/");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +68,7 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Login
       </Typography>
-      <form className={classes.form} validate onSubmit={handleSubmit}>
+      <form className={classes.form}  onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"

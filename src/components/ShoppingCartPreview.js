@@ -22,6 +22,8 @@ const ShoppingCartPreview = ({anchorEl, handleClose, items}) => {
 
     const [total, setTotal] =  useState(0);
 
+    const myRef = React.createRef(null);
+
     useEffect(() => {
       let price = 0;
       items.forEach(item => {
@@ -35,6 +37,7 @@ const ShoppingCartPreview = ({anchorEl, handleClose, items}) => {
 } 
     return (
         <Menu
+        TransitionProps={{ref: myRef}}
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -43,7 +46,7 @@ const ShoppingCartPreview = ({anchorEl, handleClose, items}) => {
 
       {items.map(item =>  {
           return (
-            <MenuItem >
+            <MenuItem  key={item.item_id}>
                 <ShoppingCartItem key={item.item_id} item={item}/>
             </MenuItem>
           )
