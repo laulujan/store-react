@@ -4,7 +4,7 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import { Link } from 'react-router-dom';
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -86,7 +86,7 @@ const Nav = () => {
           <Link
             variant="button"
             color="textPrimary"
-            href="/"
+            to="/"
             className={classes.link}
           >
             <img src="/dummylogo.png" alt="logo" className={classes.logo} />
@@ -104,7 +104,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/directory"
+              to="/directory"
               className={classes.link}
             >
               Shop
@@ -113,7 +113,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/"
+              toolbarTitle="/"
               onClick={handleLogOut}
               className={classes.link}
             >
@@ -122,7 +122,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/login"
+              to="/login"
               className={classes.link}
             >
               Log In
