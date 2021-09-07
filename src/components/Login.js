@@ -1,6 +1,5 @@
 import React, {  useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -34,11 +33,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-
-  if (token) history.push("/");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +63,7 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Login
       </Typography>
-      <form className={classes.form} validate onSubmit={handleSubmit}>
+      <form className={classes.form}  onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"

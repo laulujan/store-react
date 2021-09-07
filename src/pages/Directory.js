@@ -39,12 +39,12 @@ const Directory = () => {
         <Grid container className={classes.directoryContainer}>
             {
                 [...productCategories].map((category, index) => (
-                    <Grid item xs={12} className={classes.categoryRow}>
+                    <Grid key={index} item xs={12} className={classes.categoryRow}>
                         <CardsContainer
-                        key={index}
-                        rowName={category}
-                        rawData={products}
-                        top5={true}
+                            key={index}
+                            rowName={category}
+                            rawData={products}
+                            top5={true}
                     />
                     </Grid>
                 ))

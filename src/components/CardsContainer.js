@@ -38,6 +38,7 @@ const CardsContainer = ({rowName, rawData, top5}) => {
                     productsForDisplay.map((product, index) => (
                         <Grid item key={index}>
                             <ProductCard
+                            key={index}
                             productInfo={product} 
                             addToCartHandler={() => {dispatch(addToCart(product))}}
                             isCardSmall={top5}

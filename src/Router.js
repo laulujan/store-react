@@ -4,8 +4,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import Private from "./components/Private";
+import CustomRedirect from "./components/CustomRedirect";
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
@@ -13,7 +14,7 @@ import SignUp from './pages/SignUp'
 
 import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
-import SuccessfullCheckOut from './pages/SuccessfullPayment';
+import SuccessfulCheckOut from './pages/SuccessfulPayment';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
 import Nav from './components/Nav';
@@ -24,8 +25,10 @@ import { setToken } from "./redux/user/reducer";
 Window.nav = history;
 
 export default function Router() {
-  const token = window.localStorage.getItem("user-token");
-  if (token) store.dispatch(setToken(token));
+  console.log("loaded router");
+  const localToken = window.localStorage.getItem("user-token");
+  if (localToken) store.dispatch(setToken(localToken));
+  const storeToken = useSelector((state) => state.user.token);
   return (
     <ConnectedRouter history={history}>
       <div>
@@ -37,24 +40,28 @@ export default function Router() {
           <Route path="/sign-up">
             <SignUp />
           </Route>
-          <Route path="/login">
+          <CustomRedirect 
+            path="/login"
+            shouldDisplay={!storeToken}
+            redirectTo="/"
+          >
             <LogIn />
-          </Route>
+          </CustomRedirect>
           <Route path="/directory">
             <Directory />
           </Route>
           <Route path="/category/:category">
             <Category />
           </Route>
-          <Private 
+          <CustomRedirect 
             path="/checkout"
-            isAuthenticated={token}
+            shouldDisplay={storeToken}
             redirectTo="/login"
           >
             <CheckOut />
-          </Private>
-          <Route path="/successfull-payment">
-            <SuccessfullCheckOut />
+          </CustomRedirect>
+          <Route path="/successful-payment">
+            <SuccessfulCheckOut />
           </Route>
           <Route path="/process-payment">
             <ProcessPayment />

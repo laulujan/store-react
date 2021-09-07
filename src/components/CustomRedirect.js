@@ -4,14 +4,14 @@ import {
   Redirect
 } from 'react-router-dom';
 
-const Private = ({ children, isAuthenticated, path, redirectTo }) => {
-    console.log(isAuthenticated ? "token exists" : "NO token");
+const CustomRedirect = ({ children, shouldDisplay, path, redirectTo }) => {
+    //const label = shouldDisplay ? "token exists" : "NO token";
     return (
     <Route
         path={path}
       render={
           () => (
-          isAuthenticated ?
+          shouldDisplay ?
           (
               children
             ) : (
@@ -25,4 +25,4 @@ const Private = ({ children, isAuthenticated, path, redirectTo }) => {
   );
 };
 
-export default Private;
+export default CustomRedirect;
