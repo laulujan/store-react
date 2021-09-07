@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+import Spinner from '../components/Spinner'
 import CardsContainer from '../components/CardsContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import  { setProducts }  from "../redux/products/reducer"
@@ -34,7 +35,7 @@ const Directory = () => {
         return product.title;
     }));
 
-    return  loading ? <div>loading..</div> : error ? <div>{error}</div> : (
+    return  loading ? <Spinner /> : error ? <div>{error}</div> : (
         <Grid container className={classes.directoryContainer}>
             {
                 [...productCategories].map((category, index) => (
