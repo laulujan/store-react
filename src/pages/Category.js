@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CardsContainer from "../components/CardsContainer";
+import Spinner from '../components/Spinner'
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts } from "../redux/products/reducer";
 import { useParams } from "react-router-dom";
@@ -24,7 +25,7 @@ const Category = () => {
     dispatch(setProducts());
   }, [dispatch]);
 
-  return loading ? <div>loading..</div> : error ? <div>{error}</div> :(
+  return loading ? <Spinner /> : error ? <div>{error}</div> :(
     <Grid container className={classes.categoryContainer}>
       <Grid item xs={12} className={classes.categoryRow}>
         <CardsContainer
