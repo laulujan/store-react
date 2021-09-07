@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchCollectionsAxios from "../../api/fetchStore";
-//import { productsResponse } from '../../dummydata/dummy_products';
 
 
 const initialState = {
-    //USING DUMMY DATA
-    products: fetchCollectionsAxios(),
     cartItems: [],
 };
 
