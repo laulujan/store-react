@@ -29,10 +29,10 @@ const CheckoutTable = () => {
 
     useEffect(() => {
         fetchStore().then(fields => setItems(fields));
-        console.log('items are ', items);
-    });
+        
+    },[]);
 
-    console.log()
+    console.log('items are ', items);
     let total = 0;
 
     const [quantity, setQuantity] = useState(1)
