@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Private from "./components/Private";
+import CustomRedirect from "./components/CustomRedirect";
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
@@ -40,22 +40,26 @@ export default function Router() {
           <Route path="/sign-up">
             <SignUp />
           </Route>
-          <Route path="/login">
+          <CustomRedirect 
+            path="/login"
+            shouldDisplay={!storeToken}
+            redirectTo="/"
+          >
             <LogIn />
-          </Route>
+          </CustomRedirect>
           <Route path="/directory">
             <Directory />
           </Route>
           <Route path="/category/:category">
             <Category />
           </Route>
-          <Private 
+          <CustomRedirect 
             path="/checkout"
-            isAuthenticated={storeToken}
+            shouldDisplay={storeToken}
             redirectTo="/login"
           >
             <CheckOut />
-          </Private>
+          </CustomRedirect>
           <Route path="/successful-payment">
             <SuccessfulCheckOut />
           </Route>
