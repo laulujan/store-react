@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,8 +9,7 @@ import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingCartPreview from "./ShoppingCartPreview";
-import JWTUtil from "../util/JWTUtil";
-import { useSelector } from "react-redux";
+import { logOut } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -50,6 +50,12 @@ const Nav = () => {
   const cartItems = useSelector(state => state.cart.cartItems)
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
   const [cartCount, setCartCount] = useState(0);
 
   const handleClick = (event) => {
@@ -83,7 +89,7 @@ const Nav = () => {
             href="/"
             className={classes.link}
           >
-            <img src="dummylogo.png" alt="logo" className={classes.logo} />
+            <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
 
           <Typography
@@ -98,16 +104,16 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              href="/shop"
+              href="/directory"
               className={classes.link}
             >
               Shop
             </Link>
-            {JWTUtil.isSignedIn() ?
+            {token ?
             <Link
               variant="button"
               color="textPrimary"
-              onClick={JWTUtil.signOut}
+              onClick={handleLogOut}
               className={classes.link}
             >
               Log Out
