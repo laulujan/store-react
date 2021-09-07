@@ -15,14 +15,15 @@ const userSlice = createSlice({
     //setUser(state, action) {
     //  state.user = action.payload;
     //},
-    logOut(state) {
+    removeToken(state) {
       state.token = null;
     },
   },
 });
 
 export const logIn = createAction("user/login");
+export const logOut = createAction("user/logout");
 export const signUp = createAction("user/signup");
 
 export default userSlice.reducer;
-export const { setToken, setUser, logOut } = userSlice.actions;
+export const { setToken, removeToken } = userSlice.actions;

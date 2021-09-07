@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Private from "./components/Private";
 import Home from './pages/Home';
@@ -25,8 +26,9 @@ Window.nav = history;
 
 export default function Router() {
   console.log("loaded router");
-  const token = window.localStorage.getItem("user-token");
-  if (token) store.dispatch(setToken(token));
+  const localToken = window.localStorage.getItem("user-token");
+  if (localToken) store.dispatch(setToken(localToken));
+  const storeToken = useSelector((state) => state.user.token);
   return (
     <ConnectedRouter history={history}>
       <div>
@@ -49,7 +51,7 @@ export default function Router() {
           </Route>
           <Private 
             path="/checkout"
-            isAuthenticated={token}
+            isAuthenticated={storeToken}
             redirectTo="/login"
           >
             <CheckOut />

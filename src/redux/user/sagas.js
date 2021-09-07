@@ -5,10 +5,11 @@ import {
   takeLatest 
 } from "redux-saga/effects";
 import { 
-  logIn, 
+  logIn,
+  logOut, 
   signUp,
   setToken, 
-  logOut 
+  removeToken,
 } from "../user/reducer";
 
 import accountService from "../../api/accountService";
@@ -55,12 +56,14 @@ function* onSignUp(action) {
 
 function* onLogOut() {
   try {
+    yield put(removeToken());
     yield console.log("signing out");
+    yield window.localStorage.removeItem("user-token");
   }
   catch(error) {
     yield call(displayError,error);
   }
-  //yield window.localStorage.removeItem("user-token");
+  //
   
   //yield call(Window.nav.push, "/");
 }
