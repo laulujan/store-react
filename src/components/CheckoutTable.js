@@ -30,7 +30,7 @@ const CheckoutTable = () => {
     useEffect(() => {
         fetchStore().then(fields => setItems(fields));
         console.log('items are ', items);
-    }, []);
+    });
 
     console.log()
     let total = 0;
@@ -66,7 +66,7 @@ const CheckoutTable = () => {
             {items.map((item) => (
                 <TableRow key={item.item_id}>
                     <TableCell align="center" component="th" scope="row">
-                        <img src={item.imageUrl} alt="product-image" height='150' ></img>
+                        <img src={item.imageUrl} alt={item.name} height='150' ></img>
                     </TableCell>
                     <TableCell align="center">{item.name}</TableCell>
                     <TableCell align="center">
@@ -98,7 +98,7 @@ const CheckoutTable = () => {
         </Box>
         <Box textAlign="right" m={3}>
             <Button variant="contained" color="primary" size="large">
-                <Typography variant="p" displayInline>
+                <Typography variant="body1" display="inline">
                     <Link to='/process-payment' className={classes.link}> PROCESS PAYMENT</Link>
                 </Typography>
             </Button>

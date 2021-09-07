@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function ProductCard({productInfo, addToCartHandler, isCardSmall}) {
-  const cardWidth =  isCardSmall ? 14 : 20;
-  const cardHeightRatio = 1.2;
+  const cardWidth = isCardSmall ? 14 : 20;
+  const cardHeightRatio = isCardSmall ? 1.2 : 1;
   const cardHeight = cardWidth*cardHeightRatio;
   const cardMediaHeightRatio = 0.8;
   const cardBottomHeightRatio = 1 - cardMediaHeightRatio;
