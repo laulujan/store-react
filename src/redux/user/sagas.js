@@ -54,9 +54,15 @@ function* onSignUp(action) {
 }
 
 function* onLogOut() {
-  yield window.localStorage.removeItem("user-token");
-  yield console.log("signing out");
-  yield call(Window.nav.push, "/");
+  try {
+    yield console.log("signing out");
+  }
+  catch(error) {
+    yield call(displayError,error);
+  }
+  //yield window.localStorage.removeItem("user-token");
+  
+  //yield call(Window.nav.push, "/");
 }
 
 function* listenActions() {

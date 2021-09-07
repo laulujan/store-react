@@ -113,6 +113,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
+              href="/"
               onClick={handleLogOut}
               className={classes.link}
             >
