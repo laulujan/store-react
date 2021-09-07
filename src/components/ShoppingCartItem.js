@@ -34,7 +34,7 @@ const ShoppingCart = ({ item }) => {
   useEffect(() => {
     let currentTotal = item.quantity * item.price
     setItemTotal(currentTotal)
-  }, [itemTotal, setItemTotal, item.quantity]);
+  }, [itemTotal, setItemTotal, item.quantity, item.price]);
 
   const classes = useStyles();
   return (
