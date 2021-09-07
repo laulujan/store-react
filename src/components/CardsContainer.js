@@ -40,7 +40,7 @@ const CardsContainer = ({rowName, rawData, top5}) => {
                             <ProductCard
                             key={index}
                             productInfo={product} 
-                            addToCartHandler={() => {dispatch(addToCart(product.item_id))}}
+                            addToCartHandler={() => {dispatch(addToCart(product))}}
                             isCardSmall={top5}
                             />
                         </Grid>

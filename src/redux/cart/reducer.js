@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { productsResponse } from '../../dummydata/dummy_products';
+import fetchCollectionsAxios from "../../api/fetchStore";
+//import { productsResponse } from '../../dummydata/dummy_products';
 
 
 const initialState = {
     //USING DUMMY DATA
-    products: productsResponse.data,
+    products: fetchCollectionsAxios(),
     cartItems: [],
 };
 
@@ -19,7 +20,8 @@ const cartSlice = createSlice({
             }
         },
         addToCart:(state, action) => {
-            let item = state.products.find((prod) => prod.item_id === action.payload);
+
+            let item = action.payload;
             let inCart = state.cartItems.find((item) =>
                 item.item_id === action.payload ? true : false
             )
