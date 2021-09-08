@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     margin: theme.spacing(1, 1.5),
+    textDecorationLine: "none"
   },
   logo: {
     maxWidth: 40,
@@ -92,38 +93,45 @@ const Nav = () => {
           >
             <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
-
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Shop
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="textPrimary"
-              to="/directory"
-              className={classes.link}
+          
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.toolbarTitle}
             >
               Shop
-            </Link>
+            </Typography>
+          
+          <nav>
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/directory"
+                className={classes.link}
+              >
+                Shop
+              </Link>
+            </Button>
             {token ?
             <Button
+              className={classes.link}
               onClick={handleLogOut}
             >
               Log Out
             </Button> :
-            <Link
-              variant="button"
-              color="textPrimary"
-              to="/log-in"
-              className={classes.link}
-            >
-              Log In
-            </Link>}
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/log-in"
+                className={classes.link}
+              >
+                Log In
+              </Link>
+            </Button>
+            }
             <IconButton aria-label="cart" onClick={handleClick}>
               <StyledBadge badgeContent={cartCount} color="secondary">
                 <ShoppingCartIcon />
