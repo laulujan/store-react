@@ -46,7 +46,7 @@ const Login = () => {
     const anyErrors = isThereAnyError(error);
 
     if (anyErrors) {
-      alert("Incorrect format in your data, please check it.");
+      alert("Please enter your data in the correct format.");
       return;
     }
     dispatch(logIn(credentials));
