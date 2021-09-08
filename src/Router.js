@@ -37,11 +37,15 @@ export default function Router() {
           <Route path="/shop">
             <Shop />
           </Route>
-          <Route path="/sign-up">
-            <SignUp />
-          </Route>
           <CustomRedirect 
-            path="/login"
+            path="/sign-up"
+            shouldDisplay={!storeToken}
+            redirectTo="/"
+          >
+            <SignUp />
+          </CustomRedirect>
+          <CustomRedirect 
+            path="/log-in"
             shouldDisplay={!storeToken}
             redirectTo="/"
           >
@@ -56,7 +60,7 @@ export default function Router() {
           <CustomRedirect 
             path="/checkout"
             shouldDisplay={storeToken}
-            redirectTo="/login"
+            redirectTo="/log-in"
           >
             <CheckOut />
           </CustomRedirect>

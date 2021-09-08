@@ -4,8 +4,9 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import { Link } from 'react-router-dom';
 import Badge from "@material-ui/core/Badge";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingCartPreview from "./ShoppingCartPreview";
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     margin: theme.spacing(1, 1.5),
+    textDecorationLine: "none"
   },
   logo: {
     maxWidth: 40,
@@ -86,47 +88,50 @@ const Nav = () => {
           <Link
             variant="button"
             color="textPrimary"
-            href="/"
+            to="/"
             className={classes.link}
           >
             <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
-
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Shop
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="textPrimary"
-              href="/directory"
-              className={classes.link}
+          
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.toolbarTitle}
             >
               Shop
-            </Link>
+            </Typography>
+          
+          <nav>
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/directory"
+                className={classes.link}
+              >
+                Shop
+              </Link>
+            </Button>
             {token ?
-            <Link
-              variant="button"
-              color="textPrimary"
-              href="/"
-              onClick={handleLogOut}
+            <Button
               className={classes.link}
+              onClick={handleLogOut}
             >
               Log Out
-            </Link> :
-            <Link
-              variant="button"
-              color="textPrimary"
-              href="/login"
-              className={classes.link}
-            >
-              Log In
-            </Link>}
+            </Button> :
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/log-in"
+                className={classes.link}
+              >
+                Log In
+              </Link>
+            </Button>
+            }
             <IconButton aria-label="cart" onClick={handleClick}>
               <StyledBadge badgeContent={cartCount} color="secondary">
                 <ShoppingCartIcon />
