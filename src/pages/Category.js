@@ -25,7 +25,7 @@ const Category = () => {
     dispatch(setProducts());
   }, [dispatch]);
 
-  return loading ? <Spinner /> : error ? <div>{error}</div> :(
+  return loading ? <Spinner message="Loading..." /> : error ? <div>{error}</div> :(
     <Grid container className={classes.categoryContainer}>
       <Grid item xs={12} className={classes.categoryRow}>
         <CardsContainer
