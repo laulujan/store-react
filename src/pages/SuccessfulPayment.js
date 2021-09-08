@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const SuccessfullPayment = () => {
+const SuccessfulPayment = () => {
     const classes = useStyles();
     return (
         <div className={classes.styledMessage}>
@@ -28,4 +28,4 @@ const SuccessfullPayment = () => {
     );
 };
 
-export default SuccessfullPayment;
+export default SuccessfulPayment;

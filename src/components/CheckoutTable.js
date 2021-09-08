@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
@@ -7,7 +7,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { Link } from 'react-router-dom';
-import fetchStore from '../api/fetchStore';
+import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,29 +27,17 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutTable = () => {
     const classes = useStyles();
-    const [items, setItems] =  useState([]);
+    const dispatch = useDispatch();
+    const items = useSelector(state => state.cart.cartItems);
+    const [total, setTotal] =  useState(0);
 
     useEffect(() => {
-        fetchStore().then(fields => setItems(fields));
-        console.log('items are ', items);
-    }, []);
-
-    console.log()
-    let total = 0;
-
-    const [quantity, setQuantity] = useState(1)
-
-    const addItem = (e) => {
-        setQuantity(quantity + 1);
-      }
-    const removeItem = (e) => {
-    if (quantity > 1) {
-        setQuantity(quantity - 1);
-        }
-    }
-    function deleteItem () {
-        alert('Will delete item');
-    } 
+      let price = 0;
+      items.forEach(item => {
+        price += item.quantity * item.price
+      });
+      setTotal(price)
+    }, [items, total, setTotal]);
 
   return (
       <div className={classes.wrapper}>      
@@ -66,23 +56,23 @@ const CheckoutTable = () => {
             {items.map((item) => (
                 <TableRow key={item.item_id}>
                     <TableCell align="center" component="th" scope="row">
-                        <img src={item.imageUrl} alt="product-image" height='150' ></img>
+                        <img src={item.imageUrl} alt={item.name} height='150' ></img>
                     </TableCell>
                     <TableCell align="center">{item.name}</TableCell>
                     <TableCell align="center">
                         <Box component="span"> 
-                            <IconButton size='small' onClick={removeItem}>
+                            <IconButton size='small' onClick={() => {dispatch(decrement(item.item_id))}}>
                                 <RemoveIcon fontSize='small' />
                             </IconButton>
-                            <span> {quantity} </span>
-                            <IconButton size='small'onClick={addItem}>
+                            <span> {item.quantity} </span>
+                            <IconButton size='small' onClick={() => {dispatch(increment(item.item_id))}}>
                                 <AddIcon fontSize='small'/>
                             </IconButton>
                         </Box>
                     </TableCell>
-                    <TableCell align="center">$ {item.price * quantity}</TableCell>
+                    <TableCell align="center">$ {item.price * item.quantity}</TableCell>
                     <TableCell align="center">
-                        <IconButton aria-label="delete" onClick={deleteItem} >
+                        <IconButton aria-label="delete" onClick={() => {dispatch(removeFromCart(item.item_id))}} >
                             <DeleteIcon/>
                         </IconButton>
                     </TableCell>
@@ -98,7 +88,7 @@ const CheckoutTable = () => {
         </Box>
         <Box textAlign="right" m={3}>
             <Button variant="contained" color="primary" size="large">
-                <Typography variant="p" displayInline>
+                <Typography variant="body1" display="inline">
                     <Link to='/process-payment' className={classes.link}> PROCESS PAYMENT</Link>
                 </Typography>
             </Button>

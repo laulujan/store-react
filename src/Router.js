@@ -1,10 +1,12 @@
 import React from "react";
+import { ConnectedRouter } from "connected-react-router";
 import {
-  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+import CustomRedirect from "./components/CustomRedirect";
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
@@ -12,37 +14,58 @@ import SignUp from './pages/SignUp'
 
 import Category from './pages/Category';
 import CheckOut from './pages/CheckOut';
-import SuccessfullCheckOut from './pages/SuccessfullPayment';
+import SuccessfulCheckOut from './pages/SuccessfulPayment';
 import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
-import Nav from './components/Nav'
+import Nav from './components/Nav';
+
+import store, { history } from "./redux/store";
+import { setToken } from "./redux/user/reducer";
+
+Window.nav = history;
 
 export default function Router() {
+  console.log("loaded router");
+  const localToken = window.localStorage.getItem("user-token");
+  if (localToken) store.dispatch(setToken(localToken));
+  const storeToken = useSelector((state) => state.user.token);
   return (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <div>
         <Nav />
         <Switch>
           <Route path="/shop">
             <Shop />
           </Route>
-          <Route path="/sign-up">
+          <CustomRedirect 
+            path="/sign-up"
+            shouldDisplay={!storeToken}
+            redirectTo="/"
+          >
             <SignUp />
-          </Route>
-          <Route path="/login">
+          </CustomRedirect>
+          <CustomRedirect 
+            path="/log-in"
+            shouldDisplay={!storeToken}
+            redirectTo="/"
+          >
             <LogIn />
-          </Route>
+          </CustomRedirect>
           <Route path="/directory">
             <Directory />
           </Route>
           <Route path="/category/:category">
             <Category />
           </Route>
-          <Route path="/checkout">
+          <CustomRedirect 
+            path="/checkout"
+            shouldDisplay={storeToken}
+            redirectTo="/log-in"
+          >
             <CheckOut />
-          </Route>
-          <Route path="/successfull-payment">
-            <SuccessfullCheckOut />
+          </CustomRedirect>
+          <Route path="/successful-payment">
+            <SuccessfulCheckOut />
           </Route>
           <Route path="/process-payment">
             <ProcessPayment />
@@ -52,6 +75,6 @@ export default function Router() {
           </Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </ConnectedRouter>
   );
 }

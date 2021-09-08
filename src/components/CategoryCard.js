@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
       justifyContent: "center",
       padding: 0,
   },
-  categoryButton : {
+  categoryLabel : {
       padding: "0em 0em 2em 0em",
       fontSize: "1.4em",
   },
@@ -49,13 +49,13 @@ const CategoryCard = ({category}) => {
         <Card className={classes.root}>
             <CardActionArea className={classes.mediaContainer} onClick={()=> onClick(category.name)}>
                 <img className={classes.mediaContent} src={cardImage} alt={category.alt}></img>
-                <Button 
-                    className={classes.categoryButton}
+                <Typography 
+                    className={classes.categoryLabel}
                     size="large"
                     onClick={dummyOnClick}
                 >
                     {category.name}
-                </Button>
+                </Typography>
             </CardActionArea>
         </Card>
     );

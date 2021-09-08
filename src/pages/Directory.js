@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+import Spinner from '../components/Spinner'
 import CardsContainer from '../components/CardsContainer';
-import { productsResponse } from '../dummydata/dummy_products';
+import { useSelector, useDispatch } from 'react-redux';
+import  { setProducts }  from "../redux/products/reducer"
 
-const dummyProductsAll = productsResponse.data;
+// import { productsResponse } from '../dummydata/dummy_products';
 
-const dummyProductCategories = new Set(dummyProductsAll.map((product) => {
-    return product.title;
-}));
 
 const useStyles = makeStyles({
     directoryContainer: {
@@ -23,17 +22,29 @@ const useStyles = makeStyles({
 
 const Directory = () => {
     const classes = useStyles();
-    return (
+
+    const productsList = useSelector(state => state.products);
+    const {products, loading, error } = productsList;
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(setProducts())
+    }, [dispatch])
+
+    const productCategories = new Set(products.map((product) => {
+        return product.title;
+    }));
+
+    return  loading ? <Spinner /> : error ? <div>{error}</div> : (
         <Grid container className={classes.directoryContainer}>
             {
-                [...dummyProductCategories].map((category, index) => (
-                    <Grid item xs={12} className={classes.categoryRow}>
+                [...productCategories].map((category, index) => (
+                    <Grid key={index} item xs={12} className={classes.categoryRow}>
                         <CardsContainer
-                        key={index}
-                        rowName={category}
-                        rawData={dummyProductsAll}
-                        top5={true}
-                        
+                            key={index}
+                            rowName={category}
+                            rawData={products}
+                            top5={true}
                     />
                     </Grid>
                 ))

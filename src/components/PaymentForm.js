@@ -65,12 +65,12 @@ export default function PaymentForm() {
         temp.lastName = values.lastName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 2-25 characters.';
         temp.creditCardNumber = values.creditCardNumber.match(cardRegExp) ? '' : 'Invalid credit card number.';
         temp.securityCode = values.securityCode.match(numRegExp) ? '' : 'Invalid security code';
-        temp.expirationDateMonth = month.length != 0 ? '' : 'This field is required';
-        temp.expirationDateYear = year.length != 0 ? '' : 'This field is required';
+        temp.expirationDateMonth = month.length !== 0 ? '' : 'This field is required';
+        temp.expirationDateYear = year.length !== 0 ? '' : 'This field is required';
         setErrors({
             ...temp
         })
-        return Object.values(temp).every(x => x == '')
+        return Object.values(temp).every(x => x === '')
     }
 
     const handleInputChange = e => {
@@ -84,7 +84,8 @@ export default function PaymentForm() {
     const handleSubmit = e => {
         e.preventDefault();
         if (validate()) {
-            history.push('/successfull-payment');
+            console.log('Yey');
+            history.push('/successful-payment');
         }
     }
 
@@ -112,7 +113,6 @@ export default function PaymentForm() {
                     required
                     value={values.firstName}
                     name='firstName'
-                    helperText="First Name"
                     onChange={handleInputChange}
                     helperText="First Name"
                     {...(errors.firstName && { error: true, helperText: errors.firstName })}

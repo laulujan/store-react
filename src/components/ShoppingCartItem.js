@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
@@ -7,6 +7,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { makeStyles } from "@material-ui/core/styles";
+import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
+import { useDispatch } from 'react-redux';
 
 
 const useStyles = makeStyles(() => ({
@@ -26,21 +28,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ShoppingCart = ({ item }) => {
-  const [quantity, setQuantity] = useState(item.quantity)
+  const dispatch = useDispatch();
+  const [itemTotal, setItemTotal] = useState(0);
 
-  const addItem = (e) => {
-    setQuantity(quantity + 1)
-  }
-  const removeItem = (e) => {
-    setQuantity(quantity - 1)
-    if(quantity <= 0){
-      deleteItem()
-    }
-  }
-  const deleteItem = (e) => {
-    //here will be the function to remove item from the storage items
-    console.log(`deleted item ${item.name}`)
-  }
+  useEffect(() => {
+    let currentTotal = item.quantity * item.price
+    setItemTotal(currentTotal)
+  }, [itemTotal, setItemTotal, item.quantity, item.price]);
 
   const classes = useStyles();
   return (
@@ -55,23 +49,20 @@ const ShoppingCart = ({ item }) => {
             <Typography variant="body1">{item.name}</Typography>
             <Typography variant="body2">Price: {item.price}</Typography>
             </div>
-            
-            <IconButton onClick={removeItem}>
+            <IconButton onClick={() => {dispatch(decrement(item.item_id))}}>
               <RemoveIcon />
             </IconButton>
-            <Typography variant="body2">{quantity}</Typography>
-            <IconButton onClick={addItem}>
+            <Typography variant="body2">{item.quantity}</Typography>
+            <IconButton onClick={() => {dispatch(increment(item.item_id))}}>
               <AddIcon />
             </IconButton>
-            <Typography variant="body2">Total</Typography>
-            <IconButton onClick={deleteItem}>
+            <Typography variant="body2">Total ${itemTotal}</Typography>
+            <IconButton onClick={() => {dispatch(removeFromCart(item.item_id))}}>
               <DeleteIcon />
             </IconButton>
           </Box>
           <Divider />
-      </div>
-    
-          
+      </div>    
   );
 };
 

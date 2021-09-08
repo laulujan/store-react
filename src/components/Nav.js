@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import { Link } from 'react-router-dom';
 import Badge from "@material-ui/core/Badge";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
 import ShoppingCartPreview from "./ShoppingCartPreview";
-import JWTUtil from "../util/JWTUtil";
+import { logOut } from "../redux/user/reducer";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     margin: theme.spacing(1, 1.5),
+    textDecorationLine: "none"
   },
   logo: {
     maxWidth: 40,
@@ -46,7 +48,17 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Nav = () => {
+  const classes = useStyles();
+  const cartItems = useSelector(state => state.cart.cartItems)
+
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
+  const [cartCount, setCartCount] = useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,7 +68,13 @@ const Nav = () => {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
+  useEffect(() => {
+    let count = 0;
+    cartItems.forEach(item =>
+      count += item.quantity
+    );
+    setCartCount(count);
+  }, [cartItems])
 
   return (
     <div className={classes.root}>
@@ -70,65 +88,59 @@ const Nav = () => {
           <Link
             variant="button"
             color="textPrimary"
-            href="/"
+            to="/"
             className={classes.link}
           >
             <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
-
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Shop
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="textPrimary"
-              href="/directory"
-              className={classes.link}
+          
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.toolbarTitle}
             >
               Shop
-            </Link>
-            {JWTUtil.isSignedIn() ?
-            <Link
-              variant="button"
-              color="textPrimary"
-              onClick={JWTUtil.signOut}
+            </Typography>
+          
+          <nav>
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/directory"
+                className={classes.link}
+              >
+                Shop
+              </Link>
+            </Button>
+            {token ?
+            <Button
               className={classes.link}
+              onClick={handleLogOut}
             >
               Log Out
-            </Link> :
-            <Link
-              variant="button"
-              color="textPrimary"
-              href="/login"
-              className={classes.link}
-            >
-              Log In
-            </Link>}
+            </Button> :
+            <Button>
+              <Link
+                variant="button"
+                color="textPrimary"
+                to="/log-in"
+                className={classes.link}
+              >
+                Log In
+              </Link>
+            </Button>
+            }
             <IconButton aria-label="cart" onClick={handleClick}>
-              <StyledBadge badgeContent={4} color="secondary">
+              <StyledBadge badgeContent={cartCount} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
             <ShoppingCartPreview
               anchorEl={anchorEl}
               handleClose={handleClose}
-              items={[
-                {
-                  col_id: 5,
-                  title: "Womens",
-                  item_id: 30,
-                  name: "Floral Blouse",
-                  price: 20,
-                  imageUrl: "https://i.ibb.co/4W2DGKm/floral-blouse.png",
-                  quantity: 1
-                },
-              ]}
+              items={cartItems}
             ></ShoppingCartPreview>
           </nav>
         </Toolbar>

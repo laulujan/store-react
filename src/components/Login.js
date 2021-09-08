@@ -1,16 +1,16 @@
 import React, {  useState } from "react";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
+import { Link } from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
-import AccountService from "../api/AccountService";
-//import JWTUtil from "../util/JWTUtil";
+import { logIn } from "../redux/user/reducer";
+import { isThereAnyError } from "../util/validation";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,27 +34,23 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
-  const history = useHistory();
-  
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
+    const credentials = {
       displayName: username,
       email: email,
       password: password,
     };
+    const anyErrors = isThereAnyError(error);
 
-    AccountService.logInUser(user)
-      .then((result) => {
-        localStorage.setItem("jwt", result.data.token);
-        history.push("/");
-      })
-      .catch((error) => {
-        alert(error.response.data.message);
-      });
+    if (anyErrors) {
+      alert("Please enter your data in the correct format.");
+      return;
+    }
+    dispatch(logIn(credentials));
   };
-
   const validateRequired = (str, value) => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     let values = {...error}
@@ -62,18 +58,15 @@ const Login = () => {
     if(str === 'email'){
       !value.match(regex) ? values['regex']= true : values['regex']= false 
     }
-
     setError(values)
   }
   
-
-
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Login
+        Log In
       </Typography>
-      <form className={classes.form} validate onSubmit={handleSubmit}>
+      <form className={classes.form}  onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -89,6 +82,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('username', username)}}
           error={error.username}
+          helperText={error.username ? "Please enter a valid username." : ""}
         />
         <TextField
           variant="outlined"
@@ -105,6 +99,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('email', email)  }}
           error={error.email || error.regex}
+          helperText={error.email || error.regex ? "Please enter a valid email address." : ""}
         />
         <TextField
           variant="outlined"
@@ -122,6 +117,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('password', password) }}
           error={error.password}
+          helperText={error.password ? "Please enter a valid password." : ""}
         />
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
@@ -138,9 +134,11 @@ const Login = () => {
         </Button>
         <Grid container>
           <Grid item>
-            <Link href="/sign-up" variant="body2">
+            
+            <Link to='/sign-up' variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
+            
           </Grid>
         </Grid>
       </form>

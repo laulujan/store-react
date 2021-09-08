@@ -1,6 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import ProductCard from './ProductCard';
+import { addToCart } from '../redux/cart/reducer';
+import { useDispatch } from 'react-redux';
 
 const getProductsForDisplay = (allProducts,myFilter,keepOnly5) => {
     const filtered = allProducts.filter((product) => {
@@ -15,10 +17,7 @@ const getProductsForDisplay = (allProducts,myFilter,keepOnly5) => {
 
 const CardsContainer = ({rowName, rawData, top5}) => {
     const productsForDisplay = getProductsForDisplay(rawData,rowName,top5);
-    const addToCartAction = () => {
-        alert("you added a product to the cart :)");
-    };
-    //console.log(rowName);
+    const dispatch = useDispatch();
     return (
         <div>
             <Grid 
@@ -39,8 +38,9 @@ const CardsContainer = ({rowName, rawData, top5}) => {
                     productsForDisplay.map((product, index) => (
                         <Grid item key={index}>
                             <ProductCard
+                            key={index}
                             productInfo={product} 
-                            addToCartHandler={addToCartAction}
+                            addToCartHandler={() => {dispatch(addToCart(product))}}
                             isCardSmall={top5}
                             />
                         </Grid>
