@@ -3,6 +3,10 @@ import  { TextField, Button }  from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import { useDispatch } from 'react-redux';
+import { deleteAll } from '../redux/cart/reducer';
+
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -40,6 +44,8 @@ const initialFValues = {
 export default function PaymentForm() {
     const classes = useStyles();
     const history = useHistory();
+    const dispatch = useDispatch();
+
     const [values, setValues] = useState(initialFValues);
 
     const handleInputChange = e => {
@@ -53,6 +59,7 @@ export default function PaymentForm() {
 
     const handleSubmit = e => {   
         e.preventDefault();
+        dispatch(deleteAll());
         console.log('Yey');
         history.push('/successful-payment');
     }
