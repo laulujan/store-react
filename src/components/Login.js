@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
 import { logIn } from "../redux/user/reducer";
+import { isThereAnyError } from "../util/validation";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +43,12 @@ const Login = () => {
       email: email,
       password: password,
     };
+    const anyErrors = isThereAnyError(error);
 
+    if (anyErrors) {
+      alert("Incorrect format in your data, please check it.");
+      return;
+    }
     dispatch(logIn(credentials));
   };
   const validateRequired = (str, value) => {
@@ -52,12 +58,9 @@ const Login = () => {
     if(str === 'email'){
       !value.match(regex) ? values['regex']= true : values['regex']= false 
     }
-
     setError(values)
   }
   
-
-
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
@@ -79,6 +82,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('username', username)}}
           error={error.username}
+          helperText={error.username ? "Please enter a valid username." : ""}
         />
         <TextField
           variant="outlined"
@@ -95,6 +99,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('email', email)  }}
           error={error.email || error.regex}
+          helperText={error.email || error.regex ? "Please enter a valid email address." : ""}
         />
         <TextField
           variant="outlined"
@@ -112,6 +117,7 @@ const Login = () => {
           }}
           onBlur={(e) => {validateRequired('password', password) }}
           error={error.password}
+          helperText={error.password ? "Please enter a valid password." : ""}
         />
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
