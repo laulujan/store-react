@@ -57,12 +57,12 @@ export default function PaymentForm() {
 
     const numRegExp = /\d{3}/;
     const cardRegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/
-    const nameRegExp = /^[A-Za-z]{3,25}$/
+    const nameRegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,25}$/
 
     const validate = () => {
         let temp = {}
-        temp.firstName = values.firstName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 3-25 characters.';
-        temp.lastName = values.lastName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 3-25 characters.';
+        temp.firstName = values.firstName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 2-25 characters.';
+        temp.lastName = values.lastName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 2-25 characters.';
         temp.creditCardNumber = values.creditCardNumber.match(cardRegExp) ? '' : 'Invalid credit card number.';
         temp.securityCode = values.securityCode.match(numRegExp) ? '' : 'Invalid security code';
         temp.expirationDateMonth = month.length != 0 ? '' : 'This field is required';
