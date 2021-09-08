@@ -8,6 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
 import { signUp } from "../redux/user/reducer";
+import { isThereAnyError } from "../util/validation";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,6 +42,12 @@ const Signup = () => {
       password: password,
     };
 
+    const anyErrors = isThereAnyError(error);
+
+    if (anyErrors) {
+      alert("Incorrect format in your data, please check it.");
+      return;
+    }
     dispatch(signUp(credentials));
   };
 

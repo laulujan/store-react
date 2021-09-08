@@ -64,7 +64,7 @@ const Login = () => {
   return (
     <div className={classes.paper}>
       <Typography component="h1" variant="h5">
-        Login
+        Log In
       </Typography>
       <form className={classes.form}  onSubmit={handleSubmit}>
         <TextField
