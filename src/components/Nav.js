@@ -119,7 +119,7 @@ const Nav = () => {
             <Link
               variant="button"
               color="textPrimary"
-              to="/login"
+              to="/log-in"
               className={classes.link}
             >
               Log In

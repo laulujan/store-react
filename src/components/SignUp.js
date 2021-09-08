@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -32,12 +31,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-
-  if (token) history.push("/");
-
   
   const handleSubmit = async (e) => {
     e.preventDefault();
