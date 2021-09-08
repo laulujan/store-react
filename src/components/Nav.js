@@ -6,6 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Link } from 'react-router-dom';
 import Badge from "@material-ui/core/Badge";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingCartPreview from "./ShoppingCartPreview";
@@ -110,15 +111,11 @@ const Nav = () => {
               Shop
             </Link>
             {token ?
-            <Link
-              variant="button"
-              color="textPrimary"
-              toolbarTitle="/"
+            <Button
               onClick={handleLogOut}
-              className={classes.link}
             >
               Log Out
-            </Link> :
+            </Button> :
             <Link
               variant="button"
               color="textPrimary"
