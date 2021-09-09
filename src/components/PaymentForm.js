@@ -84,7 +84,6 @@ export default function PaymentForm() {
     const handleSubmit = e => {
         e.preventDefault();
         if (validate()) {
-            console.log('Yey');
             history.push('/successful-payment');
         }
     }

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { useDispatch } from 'react-redux';
+import { deleteCart} from '../redux/cart/reducer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -13,6 +15,12 @@ const useStyles = makeStyles(theme => ({
 
 const SuccessfulPayment = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(deleteCart());
+    }, []);
+
     return (
         <div className={classes.styledMessage}>
             <Typography
