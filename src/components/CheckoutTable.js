@@ -6,9 +6,10 @@ import { Box, Paper, IconButton, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { Link } from 'react-router-dom';
-import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
+import { useHistory } from "react-router-dom";
+import { increment, decrement, removeFromCart, toggleVisibility } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
+
 
 
 
@@ -18,16 +19,13 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         padding: '3rem 1rem',
     },
-    link: {
-        textDecoration: 'none',
-        color: 'white',
-        float: 'right',
-    }
 }));
 
 const CheckoutTable = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const items = useSelector(state => state.cart.cartItems);
     const [total, setTotal] =  useState(0);
 
@@ -38,6 +36,11 @@ const CheckoutTable = () => {
       });
       setTotal(price)
     }, [items, total, setTotal]);
+
+    const handlePayment = (e) => {
+        dispatch(toggleVisibility(false));
+        history.push('/process-payment');
+    } 
 
   return (
       <div className={classes.wrapper}>      
@@ -87,11 +90,12 @@ const CheckoutTable = () => {
             </Typography>
         </Box>
         <Box textAlign="right" m={3}>
-            <Button variant="contained" color="primary" size="large">
+            {/* <Button variant="contained" color="primary" size="large"> */}
                 <Typography variant="body1" display="inline">
-                    <Link to='/process-payment' className={classes.link}> PROCESS PAYMENT</Link>
+                    <Button variant="contained" color="primary" size="large" className={classes.btn} onClick={handlePayment}>PROCESS PAYMENT</Button>
+                    {/* <Link to='/process-payment' className={classes.link}> PROCESS PAYMENT</Link> */}
                 </Typography>
-            </Button>
+            {/* </Button> */}
         </Box>
     </div>
   );

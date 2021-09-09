@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch } from 'react-redux';
-import { deleteCart} from '../redux/cart/reducer';
+import { deleteCart, toggleVisibility} from '../redux/cart/reducer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -19,6 +19,7 @@ const SuccessfulPayment = () => {
 
     useEffect(() => {
         dispatch(deleteCart());
+        dispatch(toggleVisibility(true));
     }, []);
 
     return (
