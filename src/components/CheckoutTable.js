@@ -90,12 +90,9 @@ const CheckoutTable = () => {
             </Typography>
         </Box>
         <Box textAlign="right" m={3}>
-            {/* <Button variant="contained" color="primary" size="large"> */}
                 <Typography variant="body1" display="inline">
                     <Button variant="contained" color="primary" size="large" className={classes.btn} onClick={handlePayment}>PROCESS PAYMENT</Button>
-                    {/* <Link to='/process-payment' className={classes.link}> PROCESS PAYMENT</Link> */}
                 </Typography>
-            {/* </Button> */}
         </Box>
     </div>
   );
