@@ -8,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { makeStyles } from "@material-ui/core/styles";
 import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles(() => ({
@@ -25,11 +25,16 @@ const useStyles = makeStyles(() => ({
     height: "5em",
     margin: 5,
   },
+  num: {
+    margin: "1em",
+  }
 }));
 
 const ShoppingCart = ({ item }) => {
   const dispatch = useDispatch();
   const [itemTotal, setItemTotal] = useState(0);
+  const functionalView = useSelector((state) => state.cart.isVisible)
+
 
   useEffect(() => {
     let currentTotal = item.quantity * item.price
@@ -37,7 +42,9 @@ const ShoppingCart = ({ item }) => {
   }, [itemTotal, setItemTotal, item.quantity, item.price]);
 
   const classes = useStyles();
-  return (
+
+  if (functionalView) {
+    return (
       <div >
           <Box className={classes.item}>
             <img
@@ -63,7 +70,27 @@ const ShoppingCart = ({ item }) => {
           </Box>
           <Divider />
       </div>    
-  );
+    );
+  } else {
+    return (
+      <div >
+         <Box className={classes.item}>
+            <img
+              alt={item.name}
+              className={classes.imgMini}
+              src={item.imageUrl}
+            />
+            <div>
+            <Typography variant="body1">{item.name}</Typography>
+            </div>
+            <Typography variant="body2" className={classes.num}>Price: {item.price}</Typography>
+            <Typography variant="body2" className={classes.num}>x{item.quantity}</Typography>
+            <Typography variant="body2">Total ${itemTotal}</Typography>
+          </Box>
+          <Divider />
+      </div>
+    )
+  }
 };
 
 export default ShoppingCart;
