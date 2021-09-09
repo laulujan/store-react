@@ -25,7 +25,6 @@ import { setToken } from "./redux/user/reducer";
 Window.nav = history;
 
 export default function Router() {
-  console.log("loaded router");
   const localToken = window.localStorage.getItem("user-token");
   if (localToken) store.dispatch(setToken(localToken));
   const storeToken = useSelector((state) => state.user.token);

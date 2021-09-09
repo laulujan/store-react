@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Spinner = () => {
+const Spinner = ({message}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <CircularProgress className={classes.center}/>
-      <Typography className={classes.center}>Loading...</Typography>
+      <Typography className={classes.center}>{message}</Typography>
     </div>
   );
 }

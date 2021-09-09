@@ -169,8 +169,8 @@ export default function PaymentForm() {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {monthsList.map((item) => (
-                                    <MenuItem value={item}>{item}</MenuItem>
+                                {monthsList.map((item, index) => (
+                                    <MenuItem key={index} value={item}>{item}</MenuItem>
                                 ))}
                             </Select>
                             {errors.expirationDateMonth && <FormHelperText>{errors.expirationDateMonth}</FormHelperText>}
@@ -187,8 +187,8 @@ export default function PaymentForm() {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {yearsList.map((item) => (
-                                    <MenuItem value={item}>{item}</MenuItem>
+                                {yearsList.map((item, index) => (
+                                    <MenuItem key={index} value={item}>{item}</MenuItem>
                                 ))}
                             </Select>
                             {errors.expirationDateYear && <FormHelperText>{errors.expirationDateYear}</FormHelperText>}
