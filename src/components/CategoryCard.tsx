@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 type Category = {
-    id: string;
+    id: number;
     name: string;
     filename: string;
     alt: string;
