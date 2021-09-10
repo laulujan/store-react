@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Select, FormHelperText } from "@material-ui/core";
-import { FormControl, InputLabel, MenuItem, Grid, Box } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -9,9 +9,9 @@ const useStyles = makeStyles(theme => ({
     root: {
         margin: 'auto',
         display: 'inline-block',
-        width: '70%',
+        width: '75%',
         '& .MuiFormControl-root': {
-            width: '70%',
+            width: '75%',
             margin: theme.spacing(1),
         }
     },
@@ -27,10 +27,13 @@ const useStyles = makeStyles(theme => ({
         margin: '2rem',
     },
     styledGrid: {
-        width: '70%',
+        width: '75%',
         margin: 'auto',
         textAlign: 'center',
     },
+    styledDateGrid: {
+        margin: '0.5em',
+    }
 
 }))
 
@@ -149,50 +152,68 @@ export default function PaymentForm() {
                     onChange={handleInputChange}
                 >
                 </TextField>
-                <Grid container className={classes.styledGrid}>
+                <Grid 
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                className={classes.styledGrid}>
                     <Grid item xs={4}>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            p={1}
-                            m={2}
-                        >Expiration Date</Box>
+                        <Grid
+                            container
+                            justifyContent="center"
+
+                            >
+                            <Typography variant="body2">   Expiration Date   </Typography>
+                        </Grid>
                     </Grid>
                     <Grid item xs={4}>
-                        <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateMonth && { error: true })}>
-                            <InputLabel>Month</InputLabel>
-                            <Select
-                                value={month}
-                                onChange={handleChangeMonth}
-                                label="Month"
+                        <Grid
+                            container
+                            justifyContent="center"
+                            alignItems="flex-start"
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                {monthsList.map((item, index) => (
-                                    <MenuItem key={index} value={item}>{item}</MenuItem>
-                                ))}
-                            </Select>
-                            {errors.expirationDateMonth && <FormHelperText>{errors.expirationDateMonth}</FormHelperText>}
-                        </FormControl>
+                            <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateMonth && { error: true })}>
+                                <InputLabel>Month</InputLabel>
+                                <Select
+                                    value={month}
+                                    onChange={handleChangeMonth}
+                                    label="Month"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {monthsList.map((item) => (
+                                        <MenuItem value={item}>{item}</MenuItem>
+                                    ))}
+                                </Select>
+                                {errors.expirationDateMonth && <FormHelperText>{errors.expirationDateMonth}</FormHelperText>}
+                            </FormControl>
+                        </Grid>
                     </Grid>
                     <Grid item xs={4}>
-                        <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateYear && { error: true })}>
-                            <InputLabel>Year</InputLabel>
-                            <Select
-                                value={year}
-                                onChange={handleChangeYear}
-                                label="Year"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                {yearsList.map((item, index) => (
-                                    <MenuItem key={index} value={item}>{item}</MenuItem>
-                                ))}
-                            </Select>
-                            {errors.expirationDateYear && <FormHelperText>{errors.expirationDateYear}</FormHelperText>}
-                        </FormControl>
+                        <Grid
+                                container
+                                justifyContent="center"
+                                alignItems="flex-start"
+                                >
+                            <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateYear && { error: true })}>
+                                <InputLabel>Year</InputLabel>
+                                <Select
+                                    value={year}
+                                    onChange={handleChangeYear}
+                                    label="Year"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {yearsList.map((item) => (
+                                        <MenuItem value={item}>{item}</MenuItem>
+                                    ))}
+                                </Select>
+                                {errors.expirationDateYear && <FormHelperText>{errors.expirationDateYear}</FormHelperText>}
+                            </FormControl>
+                        </Grid>
                     </Grid>
                 </Grid>
                 <div>
