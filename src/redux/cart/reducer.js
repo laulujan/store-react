@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 
     cartItems: [],
-    isVisible: true, 
+    viewOnly: true, 
 };
 
 const cartSlice = createSlice({
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
             state.cartItems = [];
         },
         toggleVisibility(state, action) {
-            state.isVisible = action.payload;
+            state.viewOnly = action.payload;
         },
     },
 });
