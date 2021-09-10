@@ -41,7 +41,10 @@ const CategoriesContainer = () => {
                             xs={4}
                         >
                             <CategoryCard
-                            category={category}
+                            id={category.id}
+                            name={category.name}
+                            filename={category.filename}
+                            alt={category.alt}
                             />
                         </Grid>
                     ))

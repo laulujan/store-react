@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface Category {
+type Category = {
     id: string;
     name: string;
     filename: string;
@@ -43,10 +43,14 @@ const imagesFolder = "category_icons/";
 
 //export const Header: React.FC<Props> = ({text, color}) => {
 
-const CategoryCard: React.FC<Category> = (props) => {
+const CategoryCard: React.FC<Category> = ({
+    id,
+    name,
+    filename,
+    alt,
+}) => {
     const classes = useStyles();
-    const cardImage = imagesFolder + props.filename;
-    console.log(cardImage);
+    const cardImage = imagesFolder + filename;
     const history = useHistory()
     const onClick = (categoryName: string) => {
         history.push(`/category/${categoryName}`)
@@ -54,11 +58,11 @@ const CategoryCard: React.FC<Category> = (props) => {
 
     return (
         <Card className={classes.root}>
-            <CardActionArea className={classes.mediaContainer} onClick={()=> onClick(props.name)}>
-                <img className={classes.mediaContent} src={cardImage} alt={props.alt}></img>
+            <CardActionArea className={classes.mediaContainer} onClick={()=> onClick(name)}>
+                <img className={classes.mediaContent} src={cardImage} alt={alt}></img>
                 <Typography 
                     className={classes.categoryLabel}>
-                    {props.name}
+                    {name}
                 </Typography>
             </CardActionArea>
         </Card>
