@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
     },
     styledDateGrid: {
         margin: '0.5em',
+        width: '10em',
     }
 
 }))
@@ -157,12 +158,13 @@ export default function PaymentForm() {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                className={classes.styledGrid}>
+                className={classes.styledGrid}
+                >
                     <Grid item xs={4}>
                         <Grid
                             container
                             justifyContent="center"
-
+                            alignItems="flex-start"
                             >
                             <Typography variant="body2">   Expiration Date   </Typography>
                         </Grid>
@@ -173,7 +175,7 @@ export default function PaymentForm() {
                             justifyContent="center"
                             alignItems="flex-start"
                             >
-                            <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateMonth && { error: true })}>
+                            <FormControl variant="outlined" {...(errors.expirationDateMonth && { error: true })}>
                                 <InputLabel>Month</InputLabel>
                                 <Select
                                     value={month}
@@ -197,7 +199,7 @@ export default function PaymentForm() {
                                 justifyContent="center"
                                 alignItems="flex-start"
                                 >
-                            <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateYear && { error: true })}>
+                            <FormControl variant="outlined" {...(errors.expirationDateYear && { error: true })}>
                                 <InputLabel>Year</InputLabel>
                                 <Select
                                     value={year}
