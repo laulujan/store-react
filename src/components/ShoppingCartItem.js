@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 const ShoppingCart = ({ item }) => {
   const dispatch = useDispatch();
   const [itemTotal, setItemTotal] = useState(0);
-  const functionalView = useSelector((state) => state.cart.isVisible)
+  const functionalView = useSelector((state) => state.cart.viewOnly)
 
 
   useEffect(() => {
