@@ -1,3 +1,8 @@
+# Store Project
+
+This is an e-commerce web app written in ReactJS (and currently being migrated to TypeScript). It uses Material-UI, React Router DOM, Axios, Redux Toolkit and Redux Persist.
+
+It consumes data from a separate [backend](https://github.com/mfguerrero/crown-store-back).
 
 ## Run Locally
 
