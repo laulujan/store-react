@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,15 +9,24 @@ import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Typography from '@material-ui/core/Typography';
 
+type ProductCardProps = {
+    productInfo: {
+        imageUrl: string;
+        name: string;
+        price: number;
+    };
+    addToCartHandler: () => any;
+    isCardSmall: boolean;
+};
 
-export default function ProductCard({productInfo, addToCartHandler, isCardSmall}) {
+const ProductCard: React.FC<ProductCardProps> = ({productInfo, addToCartHandler, isCardSmall}) => {
   const cardWidth = isCardSmall ? 14 : 20;
   const cardHeightRatio = isCardSmall ? 1.2 : 1;
   const cardHeight = cardWidth*cardHeightRatio;
   const cardMediaHeightRatio = 0.8;
   const cardBottomHeightRatio = 1 - cardMediaHeightRatio;
   const cardTitleSize = isCardSmall ? "subtitle1" : "h6";
-  const priceLabelSize = `body${isCardSmall ? 2 : 1}`;
+  //const priceLabelSize = `body${isCardSmall ? 2 : 1}`; //TODO put this in styles
   const useStyles = makeStyles({
     root: {
       width: `${cardWidth}rem`,
@@ -94,12 +103,12 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
             <Grid item xs={4}>
               <Grid container>
                 <Grid item className={classes.cardRight} xs={12}>
-                  <Typography variant={priceLabelSize} color="textSecondary">
+                  <Typography color="textSecondary">
                     $ {productInfo.price}
                   </Typography>
                 </Grid>
                 <Grid item className={classes.cardRight} xs={12}>
-                    <IconButton className={classes.addToCartButton} variant="contained" aria-label="add to shopping cart" onClick={addToCartHandler}>
+                    <IconButton className={classes.addToCartButton} aria-label="add to shopping cart" onClick={addToCartHandler}>
                       <AddShoppingCartIcon className={classes.addToCartIcon} />
                     </IconButton>
                 </Grid>
@@ -111,3 +120,5 @@ export default function ProductCard({productInfo, addToCartHandler, isCardSmall}
     </Card>
   );
 }
+
+export default ProductCard;
