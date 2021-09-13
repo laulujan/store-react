@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { logIn } from "../redux/user/reducer";
 import { isThereAnyError } from "../util/validation";
+import { UserCredentials } from "../redux/types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,17 +29,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// type UserCredentials = {
+//     displayName: string,
+//     email: string,
+//     password: string,
+// };
+
+interface UserErrors {
+  [index: string]: boolean;
+};
+
+const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
+  const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    const credentials = {
+    const credentials: UserCredentials = {
       displayName: username,
       email: email,
       password: password,
@@ -51,7 +64,7 @@ const Login = () => {
     }
     dispatch(logIn(credentials));
   };
-  const validateRequired = (str, value) => {
+  const validateRequired = (str: string, value: string) => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     let values = {...error}
     !value ? values[str]= true : values[str]= false
@@ -135,7 +148,7 @@ const Login = () => {
         <Grid container>
           <Grid item>
             
-            <Link to='/sign-up' variant="body2">
+            <Link to='/sign-up'>
               {"Don't have an account? Sign Up"}
             </Link>
             
