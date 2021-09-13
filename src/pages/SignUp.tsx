@@ -2,7 +2,7 @@ import React from 'react';
 import SignUp from '../components/SignUp';
 import Container from '@material-ui/core/Container';
 
-const LogIn = () => {
+const SignUpPage = () => {
     return (
         <Container component="main" maxWidth="xs">
             <SignUp />
@@ -10,4 +10,4 @@ const LogIn = () => {
     );
 };
 
-export default LogIn;
+export default SignUpPage;

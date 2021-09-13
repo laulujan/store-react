@@ -1,7 +1,7 @@
 import React from 'react';
 import CategoriesContainer from "../components/CategoriesContainer";
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <div>
             <CategoriesContainer/>
