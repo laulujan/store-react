@@ -1,10 +1,25 @@
-import React from 'react';
+import * as React from "react";
 import Grid from '@material-ui/core/Grid';
 import ProductCard from './ProductCard';
 import { addToCart } from '../redux/cart/reducer';
 import { useDispatch } from 'react-redux';
 
-const getProductsForDisplay = (allProducts,myFilter,keepOnly5) => {
+type Product = {
+      col_id: number,
+      title: string,
+      item_id: number,
+      name: string,
+      price: number,
+      imageUrl: string
+};
+
+type CardsContainerProps = {
+    rowName: string, 
+    rawData: Array<Product>, 
+    top5: boolean,
+};
+
+const getProductsForDisplay = (allProducts: Array<Product>,myFilter: string, keepOnly5: boolean) => {
     const filtered = allProducts.filter((product) => {
         return product.title === myFilter;
     });
@@ -15,7 +30,7 @@ const getProductsForDisplay = (allProducts,myFilter,keepOnly5) => {
     }
 };
 
-const CardsContainer = ({rowName, rawData, top5}) => {
+const CardsContainer: React.FC<CardsContainerProps> = ({rawData, rowName, top5}) => {
     const productsForDisplay = getProductsForDisplay(rawData,rowName,top5);
     const dispatch = useDispatch();
     return (
