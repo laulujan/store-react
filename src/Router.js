@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 import CustomRedirect from "./components/CustomRedirect";
 import Home from './pages/Home';
-import Shop from './pages/Shop';
 import LogIn from './pages/LogIn';
 import SignUpPage from './pages/SignUp'
 
@@ -33,9 +32,6 @@ export default function Router() {
       <div>
         <Nav />
         <Switch>
-          <Route path="/shop">
-            <Shop />
-          </Route>
           <CustomRedirect 
             path="/sign-up"
             shouldDisplay={!storeToken}
