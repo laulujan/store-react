@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { useHistory } from "react-router-dom";
-import { increment, decrement, removeFromCart, toggleVisibility } from '../redux/cart/reducer';
+import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -38,7 +38,6 @@ const CheckoutTable = () => {
     }, [items, total, setTotal]);
 
     const handlePayment = (e) => {
-        dispatch(toggleVisibility(false));
         history.push('/process-payment');
     } 
 
