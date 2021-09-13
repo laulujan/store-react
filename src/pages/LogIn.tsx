@@ -2,7 +2,7 @@ import React from 'react';
 import Login from '../components/Login';
 import Container from '@material-ui/core/Container';
 
-const LogIn = () => {
+const LogIn: React.FC = () => {
     return (
         <Container component="main" maxWidth="xs">
             <Login />

@@ -4,8 +4,18 @@ import {
   Redirect
 } from 'react-router-dom';
 
-const CustomRedirect = ({ children, shouldDisplay, path, redirectTo }) => {
-    //const label = shouldDisplay ? "token exists" : "NO token";
+type CustomRedirectProps = {
+  shouldDisplay: boolean, 
+  path: string, 
+  redirectTo: string,
+};
+
+const CustomRedirect: React.FC<CustomRedirectProps> = ({ 
+  children, 
+  shouldDisplay, 
+  path, 
+  redirectTo 
+}) => {
     return (
     <Route
         path={path}

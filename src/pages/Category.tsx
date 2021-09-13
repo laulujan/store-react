@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+
 import CardsContainer from "../components/CardsContainer";
-import Spinner from '../components/Spinner'
-import { useSelector, useDispatch } from "react-redux";
+import Spinner from '../components/Spinner';
 import { setProducts } from "../redux/products/reducer";
-import { useParams } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
 
 const useStyles = makeStyles({
   categoryContainer: {
@@ -15,11 +16,11 @@ const useStyles = makeStyles({
 
 const Category = () => {
   const classes = useStyles();
-  let { category } = useParams();
+  let { category } = useParams<{category: string}>();
 
-  const productsList = useSelector((state) => state.products);
+  const productsList = useAppSelector((state) => state.products);
   const { products, loading, error } = productsList;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setProducts());
@@ -27,7 +28,7 @@ const Category = () => {
 
   return loading ? <Spinner message="Loading..." /> : error ? <div>{error}</div> :(
     <Grid container className={classes.categoryContainer}>
-      <Grid item xs={12} className={classes.categoryRow}>
+      <Grid item xs={12}>
         <CardsContainer
           rowName={category}
           rawData={products}
