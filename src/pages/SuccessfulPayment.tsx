@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../redux/hooks";
 import { deleteCart, toggleVisibility } from "../redux/cart/reducer";
 import { Link } from "react-router-dom";
 
@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SuccessfulPayment = () => {
+const SuccessfulPayment: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(deleteCart());
+    dispatch(deleteCart()); // como quito este error de eslint ?? :(
     dispatch(toggleVisibility(true));
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -45,7 +45,6 @@ const SuccessfulPayment = () => {
       </Typography>
       <img src="success.png" alt="Success"></img>
       <Link
-        variant="button"
         color="textPrimary"
         to="/"
         className={classes.link}
