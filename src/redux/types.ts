@@ -17,3 +17,11 @@ export interface Product {
       price: number,
       imageUrl: string
 };
+
+export interface CartItem {
+  item_id: number,
+  quantity: number,
+  price: number,
+  name: string,
+  imageUrl: string,
+};
