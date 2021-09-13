@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { signUp } from "../redux/user/reducer";
 import { isThereAnyError } from "../util/validation";
+import { UserCredentials, UserErrors } from "../redux/types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,17 +27,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = () => {
+const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
+
+const Signup: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({'username': false, 'email': false, 'password': false, 'regex': false})
+  const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    const credentials = {
+    const credentials: UserCredentials = {
       displayName: username,
       email: email,
       password: password,
@@ -51,7 +54,7 @@ const Signup = () => {
     dispatch(signUp(credentials));
   };
 
-  const validateRequired = (str, value) => {
+  const validateRequired = (str: string, value: string) => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     let values = {...error}
     !value ? values[str]= true : values[str]= false

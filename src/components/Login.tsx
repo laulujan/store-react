@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { logIn } from "../redux/user/reducer";
 import { isThereAnyError } from "../util/validation";
-import { UserCredentials } from "../redux/types";
+import { UserCredentials, UserErrors } from "../redux/types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,19 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// type UserCredentials = {
-//     displayName: string,
-//     email: string,
-//     password: string,
-// };
-
-interface UserErrors {
-  [index: string]: boolean;
-};
-
 const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
 
-const Login = () => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
