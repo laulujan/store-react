@@ -41,8 +41,6 @@ type Category = {
 
 const imagesFolder = "category_icons/";
 
-//export const Header: React.FC<Props> = ({text, color}) => {
-
 const CategoryCard: React.FC<Category> = ({
     id,
     name,
