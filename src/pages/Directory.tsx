@@ -4,8 +4,9 @@ import Grid from '@material-ui/core/Grid';
 
 import Spinner from '../components/Spinner';
 import CardsContainer from '../components/CardsContainer';
-import { useSelector, useDispatch } from 'react-redux';
+//import { useSelector, useDispatch } from 'react-redux';
 import  { setProducts }  from "../redux/products/reducer";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
 
 const useStyles = makeStyles({
     directoryContainer: {
@@ -17,16 +18,16 @@ const useStyles = makeStyles({
     },
   });
 
-const Directory = () => {
+const Directory: React.FC = () => {
     const classes = useStyles();
 
-    const productsList = useSelector(state => state.products);
+    const productsList = useAppSelector(state => state.products);
     const {products, loading, error } = productsList;
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(()=>{
         dispatch(setProducts())
-    }, [dispatch])
+    }, [dispatch]);
 
     const productCategories = new Set(products.map((product) => {
         return product.title;

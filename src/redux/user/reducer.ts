@@ -27,7 +27,7 @@ const userSlice = createSlice({
 
 export const signUp = createAction<UserCredentials>("user/signup");
 export const logIn = createAction<UserCredentials>("user/login");
-export const logOut = createAction("user/logout");
+export const logOut = createAction<void>("user/logout");
 
 export default userSlice.reducer;
 export const { setToken, removeToken } = userSlice.actions;

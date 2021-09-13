@@ -8,3 +8,12 @@ export interface UserCredentials {
 export interface UserErrors {
   [index: string]: boolean;
 };
+
+export interface Product {
+      col_id: number,
+      title: string,
+      item_id: number,
+      name: string,
+      price: number,
+      imageUrl: string
+};

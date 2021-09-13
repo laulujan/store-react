@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Category = () => {
+const Category: React.FC = () => {
   const classes = useStyles();
   let { category } = useParams<{category: string}>();
 

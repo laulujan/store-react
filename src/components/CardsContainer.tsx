@@ -3,15 +3,16 @@ import Grid from '@material-ui/core/Grid';
 import ProductCard from './ProductCard';
 import { addToCart } from '../redux/cart/reducer';
 import { useDispatch } from 'react-redux';
+import { Product } from '../redux/types';
 
-type Product = {
-      col_id: number,
-      title: string,
-      item_id: number,
-      name: string,
-      price: number,
-      imageUrl: string
-};
+// type Product = {
+//       col_id: number,
+//       title: string,
+//       item_id: number,
+//       name: string,
+//       price: number,
+//       imageUrl: string
+// };
 
 type CardsContainerProps = {
     rowName: string, 
