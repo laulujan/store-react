@@ -8,7 +8,7 @@ const fetchCollectionsAxios = async () => {
             return data.data;
         }
         return { hasError: true, message: response.statusText };
-    } catch (error) {
+    } catch (error: any) {
         return { hasError: true, message: error.message};
     }
 }

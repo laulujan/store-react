@@ -1,3 +1,4 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { 
   call, 
   put, 
@@ -13,20 +14,22 @@ import {
 } from "../user/reducer";
 
 import accountService from "../../api/accountService";
+import { UserCredentials } from "../types";
+import { AxiosResponse } from "axios";
 
-function* displayError(message) {
+function* displayError(message: any) {
   yield call(alert, message);
 }
 
-function* onLogIn(action) {
+function* onLogIn(action: PayloadAction<UserCredentials>) {
   try {
-    const result = yield call(accountService.logInUser, action.payload);
+    const result: AxiosResponse = yield call(accountService.logInUser, action.payload);
     const { success, data, message } = result.data;
     if (success) {
-      yield put(setToken(data.token)); // WARNING 
+      yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
       yield console.log("signing in");
-      yield call(Window.nav.push, "/");
+      yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
     }
@@ -36,15 +39,15 @@ function* onLogIn(action) {
   }
 }
 
-function* onSignUp(action) {
+function* onSignUp(action: PayloadAction<UserCredentials>) {
   try {
-    const result = yield call(accountService.signUpUser, action.payload);
+    const result: AxiosResponse = yield call(accountService.signUpUser, action.payload);
     const { success, data, message } = result.data;
     if (success) {
       yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
       yield console.log("signing up");
-      yield call(Window.nav.push, "/");
+      yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
     }
@@ -63,9 +66,6 @@ function* onLogOut() {
   catch(error) {
     yield call(displayError,error);
   }
-  //
-  
-  //yield call(Window.nav.push, "/");
 }
 
 function* listenActions() {

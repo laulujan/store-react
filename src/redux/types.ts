@@ -1,3 +1,9 @@
+declare global {
+    export interface Window {
+        nav:any;
+    }
+}
+
 export interface UserCredentials {
     [index: string]: any;
     displayName: string,
@@ -15,7 +21,9 @@ export interface Product {
       item_id: number,
       name: string,
       price: number,
-      imageUrl: string
+      imageUrl: string,
+      total: number,
+      quantity: number
 };
 
 export interface CartItem {
@@ -26,3 +34,11 @@ export interface CartItem {
   imageUrl: string,
   total: number
 };
+
+export interface Category {
+    id: number;
+    name: string;
+    filename: string;
+    alt: string;
+};
+

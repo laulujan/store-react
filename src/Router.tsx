@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "./redux/hooks";
 
 import CustomRedirect from "./components/CustomRedirect";
 import Home from './pages/Home';
@@ -21,12 +21,12 @@ import Nav from './components/Nav';
 import store, { history } from "./redux/store";
 import { setToken } from "./redux/user/reducer";
 
-Window.nav = history;
+window.nav = history;
 
 export default function Router() {
   const localToken = window.localStorage.getItem("user-token");
   if (localToken) store.dispatch(setToken(localToken));
-  const storeToken = useSelector((state) => state.user.token);
+  const storeToken = useAppSelector((state) => state.user.token);
   return (
     <ConnectedRouter history={history}>
       <div>
@@ -54,7 +54,7 @@ export default function Router() {
           </Route>
           <CustomRedirect 
             path="/checkout"
-            shouldDisplay={storeToken}
+            shouldDisplay={Boolean(storeToken)}
             redirectTo="/log-in"
           >
             <CheckOut />
