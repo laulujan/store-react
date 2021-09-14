@@ -21,7 +21,9 @@ export interface Product {
       item_id: number,
       name: string,
       price: number,
-      imageUrl: string
+      imageUrl: string,
+      total: number,
+      quantity: number
 };
 
 export interface CartItem {
