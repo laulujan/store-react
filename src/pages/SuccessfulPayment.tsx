@@ -24,7 +24,7 @@ const SuccessfulPayment: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(deleteCart()); // como quito este error de eslint ?? :(
+    dispatch(deleteCart()); 
     dispatch(toggleVisibility(true));
     const timer = setTimeout(() => {
       setIsLoading(false);

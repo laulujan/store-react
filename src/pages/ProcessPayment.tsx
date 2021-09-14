@@ -3,7 +3,7 @@ import PaymentForm from '../components/PaymentForm';
 import { useDispatch } from 'react-redux';
 import { toggleVisibility } from '../redux/cart/reducer';
 
-const ProcessPayment = () => {
+const ProcessPayment: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
