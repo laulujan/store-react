@@ -9,11 +9,9 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import { useHistory } from "react-router-dom";
 import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { CartItem } from "../redux/types";
 
-
-
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     wrapper: {
         width: '75%',
         margin: 'auto',
@@ -26,18 +24,18 @@ const CheckoutTable = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const items = useSelector(state => state.cart.cartItems);
-    const [total, setTotal] =  useState(0);
+    const items = useSelector((state: any) => state.cart.cartItems);
+    const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
       let price = 0;
-      items.forEach(item => {
+      items.forEach((item: CartItem) => {
         price += item.quantity * item.price
       });
       setTotal(price)
     }, [items, total, setTotal]);
 
-    const handlePayment = (e) => {
+    const handlePayment = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         history.push('/process-payment');
     } 
 
@@ -55,7 +53,7 @@ const CheckoutTable = () => {
             </TableRow>
             </TableHead>
             <TableBody>
-            {items.map((item) => (
+            {items.map((item: CartItem) => (
                 <TableRow key={item.item_id}>
                     <TableCell align="center" component="th" scope="row">
                         <img src={item.imageUrl} alt={item.name} height='150' ></img>
@@ -90,7 +88,7 @@ const CheckoutTable = () => {
         </Box>
         <Box textAlign="right" m={3}>
                 <Typography variant="body1" display="inline">
-                    <Button variant="contained" color="primary" size="large" className={classes.btn} onClick={handlePayment}>PROCESS PAYMENT</Button>
+                    <Button variant="contained" color="primary" size="large" onClick={handlePayment}>PROCESS PAYMENT</Button>
                 </Typography>
         </Box>
     </div>
