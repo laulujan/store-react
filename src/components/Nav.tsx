@@ -49,10 +49,9 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
-
-const Nav = () => {
+const Nav: React.FC = () => {
   const classes = useStyles();
-  const cartItems = useSelector((state: RootState) => state.cart.cartItems)
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ const Nav = () => {
   const handleLogOut = () => {
     dispatch(logOut());
   };
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState<number>(0);
 
   const handleClick = (event: { currentTarget: any; }) => {
     setAnchorEl(event.currentTarget);
@@ -73,11 +72,9 @@ const Nav = () => {
 
   useEffect(() => {
     let count = 0;
-    cartItems.forEach(item =>
-      count += item.quantity
-    );
+    cartItems.forEach(item => count += item.quantity);
     setCartCount(count);
-  }, [cartItems])
+  }, [cartItems]);
 
   return (
     <div>
@@ -95,16 +92,14 @@ const Nav = () => {
           >
             <img src="/dummylogo.png" alt="logo" className={classes.logo} />
           </Link>
-          
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.toolbarTitle}
-            >
-              Shop
-            </Typography>
-          
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            Shop
+          </Typography>
           <nav>
             <Button>
               <Link

@@ -41,13 +41,11 @@ const useStyles = makeStyles(theme => ({
         margin: 'auto',
         textAlign: 'center',
     },
-
 }))
 
-
-export default function PaymentForm() {
+const PaymentForm: React.FC = () => { 
     const monthsList: string[] = ['January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const yearsList: string[] = ['2022', '2023', '2024', '2025']
+    const yearsList: string[] = ['2022', '2023', '2024', '2025'];
     const initialFValues: Temporary = {
         id: 0,
         firstName: '',
@@ -66,8 +64,8 @@ export default function PaymentForm() {
     const [year, setYear] = useState<string>('');
 
     const numRegExp: RegExp= /\d{3}/;
-    const cardRegExp: RegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/
-    const nameRegExp: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,25}$/
+    const cardRegExp: RegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/;
+    const nameRegExp: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,25}$/;
 
     const validate = () => {
         let temp:Temporary = {} as Temporary;
@@ -80,23 +78,23 @@ export default function PaymentForm() {
         setErrors({
             ...temp
         })
-        return Object.values(temp).every(x => x === '')
-    }
+        return Object.values(temp).every(x => x === '');
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setValues({
             ...values,
             [name]: value,
-        })
-    }
+        });
+    };
 
     const handleSubmit = ( e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
             history.push('/successful-payment');
         }
-    }
+    };
 
     const handleChangeMonth = (e: React.ChangeEvent<{ value: unknown }>) => {
         setMonth(e.target.value as string);
@@ -218,5 +216,6 @@ export default function PaymentForm() {
             </form>
         </div>
     )
-}
+};
 
+export default PaymentForm;

@@ -23,7 +23,7 @@ const logInUser = async (user: UserCredentials) => {
 
 const accountService = {
   signUpUser,
-  logInUser
+  logInUser,
 };
 
 export default accountService;

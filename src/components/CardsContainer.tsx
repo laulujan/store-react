@@ -5,15 +5,6 @@ import { addToCart } from '../redux/cart/reducer';
 import { useDispatch } from 'react-redux';
 import { Product } from '../redux/types';
 
-// type Product = {
-//       col_id: number,
-//       title: string,
-//       item_id: number,
-//       name: string,
-//       price: number,
-//       imageUrl: string
-// };
-
 type CardsContainerProps = {
     rowName: string, 
     rawData: Array<Product>, 
@@ -37,27 +28,27 @@ const CardsContainer: React.FC<CardsContainerProps> = ({rawData, rowName, top5})
     return (
         <div>
             <Grid 
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
             >
                 <Grid item xs={12}><h2>{rowName}</h2></Grid> 
             <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="flex-start"
-            spacing={2}
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="flex-start"
+                spacing={2}
             >
                 {
                     productsForDisplay.map((product, index) => (
                         <Grid item key={index}>
                             <ProductCard
-                            key={index}
-                            productInfo={product} 
-                            addToCartHandler={() => {dispatch(addToCart(product))}}
-                            isCardSmall={top5}
+                                key={index}
+                                productInfo={product} 
+                                addToCartHandler={() => {dispatch(addToCart(product))}}
+                                isCardSmall={top5}
                             />
                         </Grid>
                     ))

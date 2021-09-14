@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -22,43 +22,41 @@ const useStyles = makeStyles({
     height: "auto",
   },
   categoryTitle: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "center",
-      padding: 0,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 0,
   },
   categoryLabel : {
-      padding: "0em 0em 2em 0em",
-      fontSize: "1.4em",
+    padding: "0em 0em 2em 0em",
+    fontSize: "1.4em",
   },
 });
 
 const imagesFolder = "category_icons/";
 
 const CategoryCard: React.FC<Category> = ({
-    id,
-    name,
-    filename,
-    alt,
+  id,
+  name,
+  filename,
+  alt,
 }) => {
-    const classes = useStyles();
-    const cardImage = imagesFolder + filename;
-    const history = useHistory()
-    const onClick = (categoryName: string) => {
-        history.push(`/category/${categoryName}`)
-    }
+  const classes = useStyles();
+  const cardImage = imagesFolder + filename;
+  const history = useHistory();
+  const onClick = (categoryName: string) => {history.push(`/category/${categoryName}`)};
 
-    return (
-        <Card className={classes.root}>
-            <CardActionArea className={classes.mediaContainer} onClick={()=> onClick(name)}>
-                <img className={classes.mediaContent} src={cardImage} alt={alt}></img>
-                <Typography 
-                    className={classes.categoryLabel}>
-                    {name}
-                </Typography>
-            </CardActionArea>
-        </Card>
-    );
+  return (
+    <Card className={classes.root}>
+      <CardActionArea className={classes.mediaContainer} onClick={()=> onClick(name)}>
+        <img className={classes.mediaContent} src={cardImage} alt={alt}></img>
+        <Typography 
+          className={classes.categoryLabel}>
+          {name}
+        </Typography>
+      </CardActionArea>
+    </Card>
+  );
 };
 
 export default CategoryCard;

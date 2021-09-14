@@ -29,12 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
+const initialFormValues: UserErrors = {
+  username: false, 
+  email: false, 
+  password: false, 
+  regex: false
+};
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -55,13 +60,13 @@ const Login: React.FC = () => {
     dispatch(logIn(credentials));
   };
   const validateRequired = (str: string, value: string) => {
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    let values = {...error}
-    !value ? values[str]= true : values[str]= false
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let values = {...error};
+    !value ? values[str]= true : values[str]= false;
     if(str === 'email'){
-      !value.match(regex) ? values['regex']= true : values['regex']= false 
+      !value.match(regex) ? values['regex']= true : values['regex']= false; 
     }
-    setError(values)
+    setError(values);
   }
   
   return (
@@ -137,11 +142,9 @@ const Login: React.FC = () => {
         </Button>
         <Grid container>
           <Grid item>
-            
             <Link to='/sign-up'>
               {"Don't have an account? Sign Up"}
             </Link>
-            
           </Grid>
         </Grid>
       </form>
