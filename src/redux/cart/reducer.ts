@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CartItem } from "../types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem, Product } from "../types";
 
 interface CartState {
     cartItems: Array<CartItem>,
@@ -15,13 +15,13 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        removeFromCart:(state, action) => {
+        removeFromCart:(state, action: PayloadAction<number>) => {
             return {
                 ...state,  
                 cartItems: state.cartItems.filter((item) => item.item_id !== action.payload)
             }
         },
-        addToCart:(state, action) => {
+        addToCart:(state, action: PayloadAction<Product>) => {
 
             let item = action.payload;
             let inCart = state.cartItems.find((item) =>
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
                 [...state.cartItems, { ...item, quantity: 1 }]
             }      
         },
-        increment: (state, action) => {
+        increment: (state, action: PayloadAction<number>) => {
             return {
                 ...state,  
                 cartItems: state.cartItems.map((item) => item.item_id === action.payload ? {
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
                 )
             }
         },
-        decrement: (state, action) => {
+        decrement: (state, action: PayloadAction<number>) => {
             return {
                 ...state,  
                 cartItems: state.cartItems.map((item) => (item.item_id === action.payload && item.quantity > 1) ? {
@@ -62,7 +62,7 @@ const cartSlice = createSlice({
                 cartItems: [],
             }
         },
-        toggleVisibility: (state, action) => {
+        toggleVisibility: (state, action: PayloadAction<boolean>) => {
             return {
                 ...state, 
                 isVisible: action.payload, 

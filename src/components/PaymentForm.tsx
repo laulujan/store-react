@@ -5,6 +5,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
+interface Temporary {
+    id: number,
+    firstName: string,
+    lastName: string,
+    creditCardNumber: string,
+    securityCode: string,
+    expirationDateMonth: string,
+    expirationDateYear: string,
+};
+
 const useStyles = makeStyles(theme => ({
     root: {
         margin: 'auto',
@@ -36,9 +46,9 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function PaymentForm() {
-    const monthsList = ['January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const yearsList = ['2022', '2023', '2024', '2025']
-    const initialFValues = {
+    const monthsList: string[] = ['January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const yearsList: string[] = ['2022', '2023', '2024', '2025']
+    const initialFValues: Temporary = {
         id: 0,
         firstName: '',
         lastName: '',
@@ -46,21 +56,21 @@ export default function PaymentForm() {
         securityCode: '',
         expirationDateMonth: '',
         expirationDateYear: '',
-    }
+    } as Temporary
 
     const classes = useStyles();
     const history = useHistory();
-    const [values, setValues] = useState(initialFValues);
-    const [errors, setErrors] = useState({});
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    const [values, setValues] = useState<Temporary>(initialFValues as Temporary);
+    const [errors, setErrors] = useState<Temporary>({} as Temporary);
+    const [month, setMonth] = useState<string>('');
+    const [year, setYear] = useState<string>('');
 
-    const numRegExp = /\d{3}/;
-    const cardRegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/
-    const nameRegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,25}$/
+    const numRegExp: RegExp= /\d{3}/;
+    const cardRegExp: RegExp = /\b(?:\d{4}[ -]?){3}(?=\d{4}\b)(?:\d{4})/
+    const nameRegExp: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,25}$/
 
     const validate = () => {
-        let temp = {}
+        let temp:Temporary = {} as Temporary;
         temp.firstName = values.firstName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 2-25 characters.';
         temp.lastName = values.lastName.match(nameRegExp) ? '' : 'Name field should be alphabetic and 2-25 characters.';
         temp.creditCardNumber = values.creditCardNumber.match(cardRegExp) ? '' : 'Invalid credit card number.';
@@ -73,7 +83,7 @@ export default function PaymentForm() {
         return Object.values(temp).every(x => x === '')
     }
 
-    const handleInputChange = e => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target
         setValues({
             ...values,
@@ -81,18 +91,18 @@ export default function PaymentForm() {
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = ( e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (validate()) {
             history.push('/successful-payment');
         }
     }
 
-    const handleChangeMonth = (event) => {
-        setMonth(event.target.value);
+    const handleChangeMonth = (e: React.ChangeEvent<{ value: unknown }>) => {
+        setMonth(e.target.value as string);
     };
-    const handleChangeYear = (event) => {
-        setYear(event.target.value);
+    const handleChangeYear = (e: React.ChangeEvent<{ value: unknown }>) => {
+        setYear(e.target.value as string);
     };
 
 
@@ -107,7 +117,7 @@ export default function PaymentForm() {
                 >
                     PAYMENT INFORMATION
                 </Typography>
-                <TextField className={classes.styledTextField}
+                <TextField 
                     variant='outlined'
                     required
                     value={values.firstName}
@@ -159,7 +169,7 @@ export default function PaymentForm() {
                         >Expiration Date</Box>
                     </Grid>
                     <Grid item xs={4}>
-                        <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateMonth && { error: true })}>
+                        <FormControl variant="outlined" {...(errors.expirationDateMonth && { error: true })}>
                             <InputLabel>Month</InputLabel>
                             <Select
                                 value={month}
@@ -177,7 +187,7 @@ export default function PaymentForm() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={4}>
-                        <FormControl variant="outlined" className={classes.formControl} {...(errors.expirationDateYear && { error: true })}>
+                        <FormControl variant="outlined"  {...(errors.expirationDateYear && { error: true })}>
                             <InputLabel>Year</InputLabel>
                             <Select
                                 value={year}
