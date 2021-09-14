@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-import CardsContainer from "../components/CardsContainer";
+import CardsContainer from '../components/CardsContainer';
 import Spinner from '../components/Spinner';
-import { setProducts } from "../redux/products/reducer";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { setProducts } from '../redux/products/reducer';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
 
 const useStyles = makeStyles({
   categoryContainer: {
-    padding: "1em",
+    padding: '1em',
   },
 });
 

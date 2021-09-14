@@ -2,7 +2,7 @@ import React from 'react';
 import SignUp from '../components/SignUp';
 import Container from '@material-ui/core/Container';
 
-const SignUpPage = () => {
+const SignUpPage: React.FC = () => {
     return (
         <Container component="main" maxWidth="xs">
             <SignUp />

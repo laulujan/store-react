@@ -10,8 +10,8 @@ const ProcessPayment: React.FC = () => {
         dispatch(toggleVisibility(false));
         return () => {
             dispatch(toggleVisibility(true));
-        }
-    }, [dispatch])
+        };
+    }, [dispatch]);
 
     return (
         <div> 

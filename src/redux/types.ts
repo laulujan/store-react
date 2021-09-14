@@ -41,4 +41,3 @@ export interface Category {
     filename: string;
     alt: string;
 };
-

@@ -1,16 +1,16 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { makeStyles } from '@material-ui/core/styles';
 import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../redux/store";
+import { RootState } from '../redux/store';
 
 
 const useStyles = makeStyles(() => ({
@@ -48,12 +48,11 @@ type ShoppingCartProps = {
 const ShoppingCart = ({ item }: ShoppingCartProps ) => {
   const dispatch = useDispatch();
   const [itemTotal, setItemTotal] = useState(0);
-  const functionalView = useSelector((state: RootState) => state.cart.isVisible)
-
+  const functionalView = useSelector((state: RootState) => state.cart.isVisible);
 
   useEffect(() => {
-    let currentTotal = item.quantity * item.price
-    setItemTotal(currentTotal)
+    let currentTotal = item.quantity * item.price;
+    setItemTotal(currentTotal);
   }, [itemTotal, setItemTotal, item.quantity, item.price]);
 
   const classes = useStyles();

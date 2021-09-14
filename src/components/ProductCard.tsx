@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -19,71 +19,67 @@ type ProductCardProps = {
     isCardSmall: boolean;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({productInfo, addToCartHandler, isCardSmall}) => {
-  const cardWidth = isCardSmall ? 14 : 20;
-  const cardHeightRatio = isCardSmall ? 1.2 : 1;
-  const cardHeight = cardWidth*cardHeightRatio;
-  const cardMediaHeightRatio = 0.8;
-  const cardBottomHeightRatio = 1 - cardMediaHeightRatio;
-  const cardTitleSize = isCardSmall ? "subtitle1" : "h6";
-  //const priceLabelSize = `body${isCardSmall ? 2 : 1}`; //TODO put this in styles
-  const useStyles = makeStyles({
+const useStyles = makeStyles({
     root: {
-      width: `${cardWidth}rem`,
-      height: `${cardHeight}rem`,
+      width: props => props ? '14rem' : '20rem',
+      height: props => props ? '16rem' : '20rem',
     },
     cardInside: {
-      height: `${cardHeight}rem`,
+      height: props => props ? '16rem' : '20rem',
       padding: 0,
     },
     media: {
-      height: `${cardHeight*cardMediaHeightRatio}rem`,
+      height: props => props ? '13rem' : '16rem',
       margin: 0,
     },
     cardBottom: {
-      height: `${cardHeight*cardBottomHeightRatio}rem`,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "0rem 0.6rem 0rem 0.6rem",
+      height: props => props ? '3rem' : '4rem',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      padding: '0rem 0.6rem 0rem 0.6rem',
     },
     
     cardInfo: {
       display: 'flex',
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      alignItems: "center",
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
       padding: 0,
       margin: 0,
     },
     cardTitle: {
-      lineHeight: "1.2em",
+      lineHeight: '1.2em',
     },
     cardRight: {
       display: 'flex',
-      flexDirection: "row",
-      justifyContent: "flex-end",
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
       
     },
     cardLeft: {
       display: 'flex',
-      flexDirection: "row",
-      justifyContent: "flex-start",
-      alignItems: "center",
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
       
     },
     addToCartButton: {
-      width: "1rem",
-      height: "1rem",
-      backgroundColor: "grey",
+      width: '1rem',
+      height: '1rem',
+      backgroundColor: 'grey',
     },
     addToCartIcon: {
-      width: "0.8rem",
-      height: "0.8rem",
-      color: "white",
+      width: '0.8rem',
+      height: '0.8rem',
+      color: 'white',
     }
   });
-  const classes = useStyles();
+
+const ProductCard: React.FC<ProductCardProps> = ({productInfo, addToCartHandler, isCardSmall}) => {
+  const cardTitleSize = isCardSmall ? "subtitle1" : "h6";
+  const priceLabelSize = isCardSmall ? "body2" : "body1";
+  const classes = useStyles(isCardSmall);
 
   return (
     <Card className={classes.root}>
@@ -103,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({productInfo, addToCartHandler,
             <Grid item xs={4}>
               <Grid container>
                 <Grid item className={classes.cardRight} xs={12}>
-                  <Typography color="textSecondary">
+                  <Typography variant={priceLabelSize} color="textSecondary">
                     $ {productInfo.price}
                   </Typography>
                 </Grid>

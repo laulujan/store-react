@@ -1,12 +1,12 @@
-import React from "react";
-import { ConnectedRouter } from "connected-react-router";
+import React from 'react';
+import { ConnectedRouter } from 'connected-react-router';
 import {
   Switch,
   Route,
-} from "react-router-dom";
-import { useAppSelector } from "./redux/hooks";
+} from 'react-router-dom';
+import { useAppSelector } from './redux/hooks';
 
-import CustomRedirect from "./components/CustomRedirect";
+import CustomRedirect from './components/CustomRedirect';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import SignUpPage from './pages/SignUp'
@@ -18,13 +18,13 @@ import Directory from './pages/Directory';
 import ProcessPayment from './pages/ProcessPayment';
 import Nav from './components/Nav';
 
-import store, { history } from "./redux/store";
-import { setToken } from "./redux/user/reducer";
+import store, { history } from './redux/store';
+import { setToken } from './redux/user/reducer';
 
 window.nav = history;
 
 export default function Router() {
-  const localToken = window.localStorage.getItem("user-token");
+  const localToken = window.localStorage.getItem('user-token');
   if (localToken) store.dispatch(setToken(localToken));
   const storeToken = useAppSelector((state) => state.user.token);
   return (

@@ -1,27 +1,27 @@
-import React, {  useState } from "react";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import React, {  useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
-import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { logIn } from "../redux/user/reducer";
-import { isThereAnyError } from "../util/validation";
-import { UserCredentials, UserErrors } from "../redux/types";
+import { logIn } from '../redux/user/reducer';
+import { isThereAnyError } from '../util/validation';
+import { UserCredentials, UserErrors } from '../redux/types';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", 
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -29,12 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
+const initialFormValues: UserErrors = {
+  username: false, 
+  email: false, 
+  password: false, 
+  regex: false
+};
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -49,19 +54,19 @@ const Login: React.FC = () => {
     const anyErrors = isThereAnyError(error);
 
     if (anyErrors) {
-      alert("Please enter your data in the correct format.");
+      alert('Please enter your data in the correct format.');
       return;
     }
     dispatch(logIn(credentials));
   };
   const validateRequired = (str: string, value: string) => {
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    let values = {...error}
-    !value ? values[str]= true : values[str]= false
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let values = {...error};
+    values[str]= Boolean(!value);
     if(str === 'email'){
-      !value.match(regex) ? values['regex']= true : values['regex']= false 
+      values['regex'] = Boolean(!value.match(regex)); 
     }
-    setError(values)
+    setError(values);
   }
   
   return (
@@ -137,11 +142,9 @@ const Login: React.FC = () => {
         </Button>
         <Grid container>
           <Grid item>
-            
-            <Link to='/sign-up'>
+            <Link to="/sign-up">
               {"Don't have an account? Sign Up"}
             </Link>
-            
           </Grid>
         </Grid>
       </form>

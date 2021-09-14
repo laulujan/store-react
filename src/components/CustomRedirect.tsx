@@ -14,23 +14,12 @@ const CustomRedirect: React.FC<CustomRedirectProps> = ({
   children, 
   shouldDisplay, 
   path, 
-  redirectTo 
+  redirectTo, 
 }) => {
-    return (
+  return (
     <Route
-        path={path}
-      render={
-          () => (
-          shouldDisplay ?
-          (
-              children
-            ) : (
-              <Redirect
-                to={redirectTo}
-              />
-            )
-          )
-      }
+      path={path}
+      render={() => (shouldDisplay ? (children) : (<Redirect to={redirectTo}/>))}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../types";
+import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
+import { Product } from '../types';
 
 interface ProductsState {
   loading: boolean,
@@ -14,7 +14,7 @@ const initialState = {
 } as ProductsState;
 
 const productsSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState,
   reducers: {
     productsRequest(state){
@@ -31,7 +31,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const setProducts = createAction<void>("products/setProducts");
+export const setProducts = createAction<void>('products/setProducts');
 
 export default productsSlice.reducer;
 export const { productsRequest, productsSuccess, productsError } = productsSlice.actions;

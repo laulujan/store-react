@@ -1,5 +1,5 @@
-import axios from "axios";
-import { UserCredentials } from "../redux/types";
+import axios from 'axios';
+import { UserCredentials } from '../redux/types';
 
 const signUpUser = async (user: UserCredentials) => {
   try {
@@ -23,7 +23,7 @@ const logInUser = async (user: UserCredentials) => {
 
 const accountService = {
   signUpUser,
-  logInUser
+  logInUser,
 };
 
 export default accountService;

@@ -7,12 +7,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3, 2),
     height: 200,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   center:{
-      margin: "auto",
+      margin: 'auto',
   }
 }));
 

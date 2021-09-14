@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
+import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-import rootReducer from "./root-reducer";
-import rootSaga from "./root-saga";
+import rootReducer from './root-reducer';
+import rootSaga from './root-saga';
 
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,5 +27,5 @@ export const store = configureStore({
 
 sagaMiddleware.run(rootSaga);
 export default store;
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
