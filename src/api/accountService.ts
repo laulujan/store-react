@@ -1,5 +1,5 @@
-import axios from "axios";
-import { UserCredentials } from "../redux/types";
+import axios from 'axios';
+import { UserCredentials } from '../redux/types';
 
 const signUpUser = async (user: UserCredentials) => {
   try {

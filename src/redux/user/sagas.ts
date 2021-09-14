@@ -1,25 +1,25 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction } from '@reduxjs/toolkit';
 import { 
   call, 
   put, 
   spawn, 
   takeLatest 
-} from "redux-saga/effects";
+} from 'redux-saga/effects';
 import { 
   logIn,
   logOut, 
   signUp,
   setToken, 
   removeToken,
-} from "../user/reducer";
+} from '../user/reducer';
 
-import accountService from "../../api/accountService";
-import { UserCredentials } from "../types";
-import { AxiosResponse } from "axios";
+import accountService from '../../api/accountService';
+import { UserCredentials } from '../types';
+import { AxiosResponse } from 'axios';
 
 function* displayError(message: any) {
   yield call(alert, message);
-}
+};
 
 function* onLogIn(action: PayloadAction<UserCredentials>) {
   try {
@@ -37,7 +37,7 @@ function* onLogIn(action: PayloadAction<UserCredentials>) {
   catch(error) {
     yield call(displayError, error);
   }
-}
+};
 
 function* onSignUp(action: PayloadAction<UserCredentials>) {
   try {
@@ -55,7 +55,7 @@ function* onSignUp(action: PayloadAction<UserCredentials>) {
   catch(error) {
     yield call(displayError, error);
   }
-}
+};
 
 function* onLogOut() {
   try {
@@ -66,16 +66,16 @@ function* onLogOut() {
   catch(error) {
     yield call(displayError,error);
   }
-}
+};
 
 function* listenActions() {
   yield takeLatest(signUp,onSignUp);
   yield takeLatest(logIn, onLogIn);
   yield takeLatest(logOut, onLogOut);
-}
+};
 
 function* initSaga() {
   yield spawn(listenActions);
-}
+};
 
 export default initSaga;

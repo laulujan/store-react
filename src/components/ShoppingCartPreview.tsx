@@ -1,12 +1,11 @@
-import * as React from 'react'
-import Menu from '@material-ui/core/Menu'
-import  MenuItem  from '@material-ui/core/MenuItem'
-import Button from '@material-ui/core/Button'
-import ShoppingCartItem from './ShoppingCartItem'
+import React, { useState, useEffect } from 'react';
+import Menu from '@material-ui/core/Menu';
+import  MenuItem  from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import ShoppingCartItem from './ShoppingCartItem';
 import { makeStyles } from "@material-ui/core/styles";
-import  Typography  from '@material-ui/core/Typography'
+import  Typography  from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-
 
 const useStyles = makeStyles(() => ({
     btn: {
@@ -29,15 +28,14 @@ type ShoppingcartPreviewProps = {
     items: Array<Item>,
 };
 
-
 const ShoppingCartPreview= ({anchorEl, handleClose, items} : ShoppingcartPreviewProps) => {
     const classes = useStyles();
     const history = useHistory();
 
-    const [total, setTotal] =  React.useState(0);
+    const [total, setTotal] =  useState(0);
 
 
-    React.useEffect(() => {
+    useEffect(() => {
       let price = 0;
       items.forEach(item => {
         price += item.quantity * item.price;
