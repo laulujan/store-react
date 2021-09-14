@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
+import { Category } from "../redux/types";
 
 const useStyles = makeStyles({
   root: {
@@ -31,13 +32,6 @@ const useStyles = makeStyles({
       fontSize: "1.4em",
   },
 });
-
-type Category = {
-    id: number;
-    name: string;
-    filename: string;
-    alt: string;
-}
 
 const imagesFolder = "category_icons/";
 

@@ -31,3 +31,10 @@ export interface CartItem {
   name: string,
   imageUrl: string,
 };
+
+export interface Category {
+    id: number;
+    name: string;
+    filename: string;
+    alt: string;
+}
