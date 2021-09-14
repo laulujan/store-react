@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { useAppDispatch } from "../redux/hooks";
-import { deleteCart, toggleVisibility } from "../redux/cart/reducer";
-import { Link } from "react-router-dom";
-
-import Spinner from "../components/Spinner";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import { useAppDispatch } from '../redux/hooks';
+import { deleteCart, toggleVisibility } from '../redux/cart/reducer';
+import Spinner from '../components/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   styledMessage: {
-    textAlign: "center",
-    margin: "2rem",
+    textAlign: 'center',
+    margin: '2rem',
   },
   link: {
     margin: theme.spacing(1, 1.5),
-    textDecorationLine: "none",
+    textDecorationLine: 'none',
   },
 }));
 

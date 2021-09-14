@@ -4,29 +4,27 @@ import Grid from '@material-ui/core/Grid';
 
 import Spinner from '../components/Spinner';
 import CardsContainer from '../components/CardsContainer';
-//import { useSelector, useDispatch } from 'react-redux';
-import  { setProducts }  from "../redux/products/reducer";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import  { setProducts }  from '../redux/products/reducer';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
 
 const useStyles = makeStyles({
     directoryContainer: {
-      padding: "1em",
+      padding: '1em',
       
     },
     categoryRow: {
-        margin: "1em 0em 1em 0em",
+        margin: '1em 0em 1em 0em',
     },
   });
 
 const Directory: React.FC = () => {
     const classes = useStyles();
-
     const productsList = useAppSelector(state => state.products);
     const {products, loading, error } = productsList;
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     useEffect(()=>{
-        dispatch(setProducts())
+        dispatch(setProducts());
     }, [dispatch]);
 
     const productCategories = Array.from(new Set(products.map((product) => {
@@ -43,11 +41,10 @@ const Directory: React.FC = () => {
                             rowName={category}
                             rawData={products}
                             top5={true}
-                    />
+                        />
                     </Grid>
                 ))
             }
-            
         </Grid>
     );
 };
