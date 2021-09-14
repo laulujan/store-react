@@ -62,9 +62,9 @@ const Login: React.FC = () => {
   const validateRequired = (str: string, value: string) => {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     let values = {...error};
-    !value ? values[str]= true : values[str]= false;
+    values[str]= Boolean(!value);
     if(str === 'email'){
-      !value.match(regex) ? values['regex']= true : values['regex']= false; 
+      values['regex'] = Boolean(!value.match(regex)); 
     }
     setError(values);
   }
