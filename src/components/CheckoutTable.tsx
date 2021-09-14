@@ -1,15 +1,15 @@
-import React, { useState, useEffect} from "react";
-import { makeStyles } from "@material-ui/core";
+import React, { useState, useEffect} from 'react';
+import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
 import { Box, Paper, IconButton, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import { useHistory } from "react-router-dom";
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { useHistory } from 'react-router-dom';
 import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { CartItem } from "../redux/types";
+import { CartItem } from '../redux/types';
 
 const useStyles = makeStyles(() => ({
     wrapper: {
@@ -36,7 +36,7 @@ const CheckoutTable: React.FC = () => {
 
     const handlePayment = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         history.push('/process-payment');
-    }
+    };
     return (
         <div className={classes.wrapper}>
             <TableContainer component={Paper}>
@@ -54,17 +54,17 @@ const CheckoutTable: React.FC = () => {
                         {items.map((item: CartItem) => (
                             <TableRow key={item.item_id}>
                                 <TableCell align="center" component="th" scope="row">
-                                    <img src={item.imageUrl} alt={item.name} height='150' ></img>
+                                    <img src={item.imageUrl} alt={item.name} height="150" ></img>
                                 </TableCell>
                                 <TableCell align="center">{item.name}</TableCell>
                                 <TableCell align="center">
                                     <Box component="span"> 
-                                        <IconButton size='small' onClick={() => {dispatch(decrement(item.item_id))}}>
-                                            <RemoveIcon fontSize='small' />
+                                        <IconButton size="small" onClick={() => {dispatch(decrement(item.item_id))}}>
+                                            <RemoveIcon fontSize="small" />
                                         </IconButton>
                                         <span> {item.quantity} </span>
-                                        <IconButton size='small' onClick={() => {dispatch(increment(item.item_id))}}>
-                                            <AddIcon fontSize='small'/>
+                                        <IconButton size="small" onClick={() => {dispatch(increment(item.item_id))}}>
+                                            <AddIcon fontSize="small"/>
                                         </IconButton>
                                     </Box>
                                 </TableCell>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TextField, Button, Select, FormHelperText } from "@material-ui/core";
-import { FormControl, InputLabel, MenuItem, Grid, Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+import { TextField, Button, Select, FormHelperText } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Grid, Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 
 interface Temporary {
     id: number,
@@ -103,7 +103,6 @@ const PaymentForm: React.FC = () => {
         setYear(e.target.value as string);
     };
 
-
     return (
         <div className={classes.wrapper}>
             <form className={classes.root} onSubmit={handleSubmit}>
@@ -116,42 +115,42 @@ const PaymentForm: React.FC = () => {
                     PAYMENT INFORMATION
                 </Typography>
                 <TextField 
-                    variant='outlined'
+                    variant="outlined"
                     required
                     value={values.firstName}
-                    name='firstName'
+                    name="firstName"
                     onChange={handleInputChange}
                     helperText="First Name"
                     {...(errors.firstName && { error: true, helperText: errors.firstName })}
                 >
                 </TextField>
                 <TextField
-                    variant='outlined'
+                    variant="outlined"
                     required
                     value={values.lastName}
-                    name='lastName'
+                    name="lastName"
                     helperText="Last Name"
                     {...(errors.lastName && { error: true, helperText: errors.lastName })}
                     onChange={handleInputChange}
                 >
                 </TextField>
                 <TextField
-                    variant='outlined'
+                    variant="outlined"
                     required
-                    label=' •••• •••• •••• •••• '
+                    label=" •••• •••• •••• •••• "
                     value={values.creditCardNumber}
-                    name='creditCardNumber'
+                    name="creditCardNumber"
                     helperText="Credit card number"
                     {...(errors.creditCardNumber && { error: true, helperText: errors.creditCardNumber })}
                     onChange={handleInputChange}
                 >
                 </TextField>
                 <TextField
-                    variant='outlined'
+                    variant="outlined"
                     required
-                    label='CVC'
+                    label="CVC"
                     value={values.securityCode}
-                    name='securityCode'
+                    name="securityCode"
                     helperText="Security code"
                     {...(errors.securityCode && { error: true, helperText: errors.securityCode })}
                     onChange={handleInputChange}

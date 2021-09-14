@@ -1,27 +1,27 @@
-import React, {  useState } from "react";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import React, {  useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
-import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { logIn } from "../redux/user/reducer";
-import { isThereAnyError } from "../util/validation";
-import { UserCredentials, UserErrors } from "../redux/types";
+import { logIn } from '../redux/user/reducer';
+import { isThereAnyError } from '../util/validation';
+import { UserCredentials, UserErrors } from '../redux/types';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", 
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -37,9 +37,9 @@ const initialFormValues: UserErrors = {
 };
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     const anyErrors = isThereAnyError(error);
 
     if (anyErrors) {
-      alert("Please enter your data in the correct format.");
+      alert('Please enter your data in the correct format.');
       return;
     }
     dispatch(logIn(credentials));
@@ -142,7 +142,7 @@ const Login: React.FC = () => {
         </Button>
         <Grid container>
           <Grid item>
-            <Link to='/sign-up'>
+            <Link to="/sign-up">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

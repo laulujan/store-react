@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import ProductCard from './ProductCard';
 import { addToCart } from '../redux/cart/reducer';

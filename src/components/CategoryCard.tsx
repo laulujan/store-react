@@ -1,39 +1,39 @@
-import React from "react";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import { Category } from "../redux/types";
+import { Category } from '../redux/types';
 
 const useStyles = makeStyles({
   root: {
-    width: "13.5em",
-    height: "15em",
+    width: '13.5em',
+    height: '15em',
   },
   mediaContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   mediaContent: {
-    width: "90%",
-    height: "auto",
+    width: '90%',
+    height: 'auto',
   },
   categoryTitle: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     padding: 0,
   },
   categoryLabel : {
-    padding: "0em 0em 2em 0em",
-    fontSize: "1.4em",
+    padding: '0em 0em 2em 0em',
+    fontSize: '1.4em',
   },
 });
 
-const imagesFolder = "category_icons/";
+const imagesFolder = 'category_icons/';
 
 const CategoryCard: React.FC<Category> = ({
   id,

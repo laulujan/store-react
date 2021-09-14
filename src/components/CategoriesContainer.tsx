@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CategoryCard from "./CategoryCard";
-import { categoryDisplayInfo } from "../assets/categoryDisplayInfo";
+import CategoryCard from './CategoryCard';
+import { categoryDisplayInfo } from '../assets/categoryDisplayInfo';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    height: "90%",
-    padding: "4em 0em 4em 0em",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '100%',
+    height: '90%',
+    padding: '4em 0em 4em 0em',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   cardBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 

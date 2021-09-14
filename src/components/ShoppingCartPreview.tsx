@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import ShoppingCartItem from './ShoppingCartItem'
 import { makeStyles } from "@material-ui/core/styles";
 import  Typography  from '@material-ui/core/Typography'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles(() => ({
@@ -31,7 +31,7 @@ type ShoppingcartPreviewProps = {
 
 
 const ShoppingCartPreview= ({anchorEl, handleClose, items} : ShoppingcartPreviewProps) => {
-    const classes = useStyles()
+    const classes = useStyles();
     const history = useHistory();
 
     const [total, setTotal] =  React.useState(0);
@@ -40,33 +40,33 @@ const ShoppingCartPreview= ({anchorEl, handleClose, items} : ShoppingcartPreview
     React.useEffect(() => {
       let price = 0;
       items.forEach(item => {
-        price += item.quantity * item.price
+        price += item.quantity * item.price;
       });
-      setTotal(price)
+      setTotal(price);
     }, [items, total, setTotal]);
     
     const handleCheckOut = (e: any) => {
-    history.push('/checkout');
-} 
+      history.push('/checkout');
+    };
+
     return (
-        <Menu
+      <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-
-      {items.map(item =>  {
+        {items.map(item =>  {
           return (
             <MenuItem  key={item.item_id}>
                 <ShoppingCartItem key={item.item_id} item={item}/>
             </MenuItem>
           )
-      })}
-      <Typography variant="body2">Total: ${total} </Typography>
+        })}
+        <Typography variant="body2">Total: ${total} </Typography>
         <Button variant="contained" color="primary" className={classes.btn} onClick={handleCheckOut}>Checkout </Button>
       </Menu>
-    )
-}
+    );
+};
 
 export default ShoppingCartPreview

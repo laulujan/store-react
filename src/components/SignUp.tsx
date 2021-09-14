@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 
-import { signUp } from "../redux/user/reducer";
-import { isThereAnyError } from "../util/validation";
-import { UserCredentials, UserErrors } from "../redux/types";
+import { signUp } from '../redux/user/reducer';
+import { isThereAnyError } from '../util/validation';
+import { UserCredentials, UserErrors } from '../redux/types';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
 const initialFormValues: UserErrors = {username: false, email: false, password: false, regex: false};
 
 const Signup: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(initialFormValues);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -48,22 +48,21 @@ const Signup: React.FC = () => {
     const anyErrors = isThereAnyError(error);
 
     if (anyErrors) {
-      alert("Incorrect format in your data, please check it.");
+      alert('Incorrect format in your data, please check it.');
       return;
     }
     dispatch(signUp(credentials));
   };
 
   const validateRequired = (str: string, value: string) => {
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    let values = {...error}
-    !value ? values[str]= true : values[str]= false
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let values = {...error};
+    !value ? values[str]= true : values[str]= false;
     if(str === 'email'){
-      !value.match(regex) ? values['regex']= true : values['regex']= false 
+      !value.match(regex) ? values['regex']= true : values['regex']= false; 
     }
-
-    setError(values)
-  }
+    setError(values);
+  };
 
   return (
     <div className={classes.paper}>
