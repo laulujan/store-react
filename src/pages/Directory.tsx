@@ -29,9 +29,9 @@ const Directory: React.FC = () => {
         dispatch(setProducts())
     }, [dispatch]);
 
-    const productCategories = new Set(products.map((product) => {
+    const productCategories = Array.from(new Set(products.map((product) => {
         return product.title;
-    }));
+    })));
 
     return  loading ? <Spinner message="Loading..." /> : error ? <div>{error}</div> : (
         <Grid container className={classes.directoryContainer}>
