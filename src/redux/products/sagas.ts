@@ -2,7 +2,7 @@ import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { Product } from "../types";
 
 import {setProducts, productsRequest, productsSuccess, productsError } from '../products/reducer'
-import fetchCollectionsAxios from '../../api/fetchStore'
+import fetchCollectionsAxios from '../../api/productsService'
 
 
 function* onSetProducts(){
