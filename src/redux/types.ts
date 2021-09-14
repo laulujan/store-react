@@ -1,3 +1,9 @@
+declare global {
+    export interface Window {
+        nav:any;
+    }
+}
+
 export interface UserCredentials {
     [index: string]: any;
     displayName: string,

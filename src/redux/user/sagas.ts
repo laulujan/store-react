@@ -14,7 +14,7 @@ import {
 
 import accountService from "../../api/accountService";
 
-function* displayError(message) {
+function* displayError(message: string) {
   yield call(alert, message);
 }
 
@@ -26,7 +26,7 @@ function* onLogIn(action) {
       yield put(setToken(data.token)); // WARNING 
       yield window.localStorage.setItem("user-token", data.token);
       yield console.log("signing in");
-      yield call(Window.nav.push, "/");
+      yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
     }
@@ -44,7 +44,7 @@ function* onSignUp(action) {
       yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
       yield console.log("signing up");
-      yield call(Window.nav.push, "/");
+      yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
     }
