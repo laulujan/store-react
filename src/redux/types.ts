@@ -30,6 +30,7 @@ export interface CartItem {
   price: number,
   name: string,
   imageUrl: string,
+  total: number
 };
 
 export interface Category {
@@ -37,4 +38,5 @@ export interface Category {
     name: string;
     filename: string;
     alt: string;
-}
+};
+
