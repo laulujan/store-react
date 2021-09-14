@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 };
 
 type ShoppingcartPreviewProps = {
-    anchorEl: Element, 
+    anchorEl: Element|null, 
     handleClose: () => any , 
     items: Array<Item>,
 };
