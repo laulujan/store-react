@@ -16,23 +16,14 @@ export interface UserErrors {
 };
 
 export interface Product {
-      col_id: number,
-      title: string,
       item_id: number,
       name: string,
       price: number,
       imageUrl: string,
       total: number,
-      quantity: number
-};
-
-export interface CartItem {
-  item_id: number,
-  quantity: number,
-  price: number,
-  name: string,
-  imageUrl: string,
-  total: number
+      quantity: number, 
+      col_id: number,
+      title: string,
 };
 
 export interface Category {

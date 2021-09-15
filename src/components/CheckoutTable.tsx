@@ -9,7 +9,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { useHistory } from 'react-router-dom';
 import { increment, decrement, removeFromCart } from '../redux/cart/reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { CartItem } from '../redux/types';
+import { Product } from "../redux/types";
 
 const useStyles = makeStyles(() => ({
     wrapper: {
@@ -27,11 +27,11 @@ const CheckoutTable: React.FC = () => {
     const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
-        let price = 0;
-        items.forEach((item: CartItem) => {
-            price += item.quantity * item.price;
-        });
-        setTotal(price)
+      let price = 0;
+      items.forEach((item: Product) => {
+        price += item.quantity * item.price
+      });
+      setTotal(price)
     }, [items, total, setTotal]);
 
     const handlePayment = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -51,7 +51,7 @@ const CheckoutTable: React.FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {items.map((item: CartItem) => (
+                        {items.map((item: Product) => (
                             <TableRow key={item.item_id}>
                                 <TableCell align="center" component="th" scope="row">
                                     <img src={item.imageUrl} alt={item.name} height="150" ></img>
