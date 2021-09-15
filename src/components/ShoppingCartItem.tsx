@@ -48,7 +48,7 @@ type ShoppingCartProps = {
 const ShoppingCart = ({ item }: ShoppingCartProps ) => {
   const dispatch = useDispatch();
   const [itemTotal, setItemTotal] = useState(0);
-  const functionalView = useSelector((state: RootState) => state.cart.isVisible);
+  const functionalView = useSelector((state: RootState) => state.cart.viewOnly);
 
   useEffect(() => {
     let currentTotal = item.quantity * item.price;

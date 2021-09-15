@@ -3,71 +3,47 @@ import { Product } from "../types";
 
 interface CartState {
     cartItems: Array<Product>,
-    isVisible: boolean,
+    viewOnly: boolean,
 };
 
 const initialState = {
     cartItems: [],
-    isVisible: true, 
+    viewOnly: true, 
 } as CartState;
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        removeFromCart:(state, action: PayloadAction<number>) => {
-            return {
-                ...state,  
-                cartItems: state.cartItems.filter((item) => item.item_id !== action.payload)
-            }
+        removeFromCart(state, action:PayloadAction<number>){
+                state.cartItems = state.cartItems.filter((item) => item.item_id !== action.payload)
         },
-        addToCart:(state, action: PayloadAction<Product>) => {
-
-            let item = action.payload;
-            let inCart = state.cartItems.find((item) =>
-                item.item_id === action.payload.item_id ? true : false
-            );
-            return {
-                ...state,
-                cartItems: inCart ? 
-                    state.cartItems.map(item => 
-                        item.item_id === action.payload.item_id ? 
-                            { ...item, quantity: item.quantity + 1 } : 
-                            item
-                ) : 
-                [...state.cartItems, { ...item, quantity: 1 }]
-            };   
+        addToCart(state, action: PayloadAction<Product>) {
+            const item = action.payload;
+            const inCart = state.cartItems.find((item) => item.item_id === action.payload.item_id ? true : false)
+            state.cartItems = inCart ? 
+                    state.cartItems.map(item => item.item_id === action.payload.item_id ? { ...item, quantity: item.quantity + 1 } : item) :
+                    [...state.cartItems, { ...item, quantity: 1 }]     
         },
-        increment: (state, action: PayloadAction<number>) => {
-            return {
-                ...state,  
-                cartItems: state.cartItems.map((item) => item.item_id === action.payload ? {
-                    ...item, quantity: item.quantity + 1} : 
-                    item
+        increment(state, action: PayloadAction<number>) {
+            state.cartItems = state.cartItems.map((item) => 
+                    (item.item_id === action.payload) ? 
+                        {...item, quantity: item.quantity + 1} 
+                        : item)
+        },
+        decrement(state, action: PayloadAction<number>) {
+                state.cartItems = state.cartItems.map((item) => 
+                        (item.item_id === action.payload && item.quantity > 1) ? 
+                            {...item, quantity: item.quantity - 1} 
+                            : item
                 )
-            };
         },
-        decrement: (state, action: PayloadAction<number>) => {
-            return {
-                ...state,  
-                cartItems: state.cartItems.map((item) => (item.item_id === action.payload && item.quantity > 1) ? {
-                    ...item, quantity: item.quantity - 1} : 
-                    item
-                )
-            };
+        deleteCart(state) {
+            state.cartItems = [];
         },
-        deleteCart: (state) => {
-            return {
-                ...state,  
-                cartItems: [],
-            };
+        toggleVisibility(state, action: PayloadAction<boolean>) {
+            state.viewOnly = action.payload;
         },
-        toggleVisibility: (state, action: PayloadAction<boolean>) => {
-            return {
-                ...state, 
-                isVisible: action.payload, 
-            };
-        }
     },
 });
 

@@ -28,7 +28,6 @@ function* onLogIn(action: PayloadAction<UserCredentials>) {
     if (success) {
       yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
-      yield console.log("signing in");
       yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
@@ -46,7 +45,6 @@ function* onSignUp(action: PayloadAction<UserCredentials>) {
     if (success) {
       yield put(setToken(data.token));
       yield window.localStorage.setItem("user-token", data.token);
-      yield console.log("signing up");
       yield call(window.nav.push, "/");
     } else {
       yield call(displayError, message);
@@ -60,7 +58,6 @@ function* onSignUp(action: PayloadAction<UserCredentials>) {
 function* onLogOut() {
   try {
     yield put(removeToken());
-    yield console.log("signing out");
     yield window.localStorage.removeItem("user-token");
   }
   catch(error) {
